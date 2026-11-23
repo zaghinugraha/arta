@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ETF: diagram pie 4 irisan merah muda (isEtf). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp" android:height="48dp" android:viewportWidth="48" android:viewportHeight="48">
+    <path android:pathData="M6,26a16,16 0 1,0 32,0a16,16 0 1,0 -32,0Z" android:fillColor="#F0C3D6"/>
+    <path android:pathData="M22,26L22,10A16,16 0,0 1,37.2 21Z" android:fillColor="#C25E8C"/>
+    <path android:pathData="M22,26L37.2,21A16,16 0,0 1,31.4 39Z" android:fillColor="#E596B8"/>
+    <path android:pathData="M22,26L31.4,39A16,16 0,0 1,8 33.5Z" android:fillColor="#D57CA4"/>
+    <path android:pathData="M6,26a16,16 0 1,0 32,0a16,16 0 1,0 -32,0Z" android:strokeColor="#A9497A" android:strokeWidth="1.2"/>
+</vector>

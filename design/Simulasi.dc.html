@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Atlas — Simulasi what-if</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#0B0C0E}
+a{color:inherit;text-decoration:none}a:hover{color:inherit}
+button{font:inherit}
+input[type=range]{accent-color:#C8F03C}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #0B0C0E; color: #EDEEF0; font-family: Inter, system-ui, sans-serif; padding: 20px 16px 20px 16px; display: flex; flex-direction: column; gap: 14px; overflow: hidden">
+
+  <div style="display: flex; align-items: center; gap: 12px; height: 44px">
+    <a href="Main.dc.html" aria-label="Kembali ke peta" style="width: 44px; height: 44px; border-radius: 12px; border: 1px solid #26292E; background: #15171A; display: flex; align-items: center; justify-content: center">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EDEEF0" stroke-width="2" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>
+    </a>
+    <div>
+      <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 20px">Simulasi what-if</div>
+      <div style="font-size: 12px; color: #9097A0">Geser skenario, lihat dampaknya ke kekayaanmu</div>
+    </div>
+  </div>
+
+  <div style="padding: 14px; border-radius: 14px; background: #15171A; border: 1px solid #26292E; display: flex; flex-direction: column; gap: 4px">
+    <span style="font-size: 12px; color: #9097A0">Kekayaan setelah skenario</span>
+    <span style="font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 26px; letter-spacing: -0.03em">{{ total }}</span>
+    <span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: {{ deltaColor }}">{{ delta }}</span>
+    <span style="font-size: 12px; color: #9097A0; margin-top: 4px">47% kekayaanmu ikut bergerak bersama USD (kripto, emas, ETF luar)</span>
+  </div>
+
+  <div style="display: flex; gap: 6px">
+    <button onClick="{{ presetDown }}" style="flex: 1 1 0; height: 36px; border-radius: 10px; border: 1px solid #26292E; background: transparent; color: #EDEEF0; font-size: 12px; cursor: pointer">Pasar turun</button>
+    <button onClick="{{ presetRupiah }}" style="flex: 1 1 0; height: 36px; border-radius: 10px; border: 1px solid #26292E; background: transparent; color: #EDEEF0; font-size: 12px; cursor: pointer">Rupiah melemah</button>
+    <button onClick="{{ reset }}" style="flex: 0 0 auto; padding: 0 14px; height: 36px; border-radius: 10px; border: 1px solid #26292E; background: transparent; color: #9097A0; font-size: 12px; cursor: pointer">Reset</button>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 10px">
+    <sc-for list="{{ sliders }}" as="sl" hint-placeholder-count="4">
+      <div style="display: flex; flex-direction: column; gap: 2px">
+        <div style="display: flex; justify-content: space-between; align-items: baseline">
+          <label for="{{ sl.id }}" style="font-size: 13px">{{ sl.label }}</label>
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; color: {{ sl.color }}">{{ sl.text }}</span>
+        </div>
+        <input id="{{ sl.id }}" type="range" min="{{ sl.min }}" max="{{ sl.max }}" step="5" value="{{ sl.value }}" onChange="{{ sl.onChange }}" style="width: 100%; height: 28px; margin: 0">
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 4px; border-top: 1px solid #26292E">
+    <span style="font-size: 11px; color: #9097A0; text-transform: uppercase; letter-spacing: 0.08em; padding-top: 8px">Dampak per kelas aset</span>
+    <sc-for list="{{ impacts }}" as="c" hint-placeholder-count="6">
+      <div style="display: flex; align-items: center; gap: 8px; height: 18px">
+        <span style="width: 78px; flex: 0 0 auto; font-size: 12px; color: #B4BAC2">{{ c.label }}</span>
+        <div style="flex: 1 1 auto; display: flex; height: 8px">
+          <div style="flex: 1 1 0; display: flex; justify-content: flex-end; border-right: 1px solid #3A3E45">
+            <div style="width: {{ c.neg }}%; height: 8px; border-radius: 4px 0 0 4px; background: #FF9A8E"></div>
+          </div>
+          <div style="flex: 1 1 0; display: flex">
+            <div style="width: {{ c.pos }}%; height: 8px; border-radius: 0 4px 4px 0; background: #C8F03C"></div>
+          </div>
+        </div>
+        <span style="width: 84px; flex: 0 0 auto; text-align: right; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: {{ c.color }}">{{ c.text }}</span>
+      </div>
+    </sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var self = this;
+    var s = Object.assign({ k: 0, i: 0, e: 0, u: 0 }, this.state || {});
+    var UP = '#C8F03C', DN = '#FF9A8E', NE = '#9097A0';
+    var base = { saham: 411.0592, emas: 282.6032, kripto: 231.2208, tabungan: 205.5296, etf: 89.9192, rd: 64.228 };
+    var k = s.k / 100, i = s.i / 100, e = s.e / 100, u = s.u / 100;
+    var after = {
+      saham: base.saham * (1 + i),
+      emas: base.emas * (1 + e) * (1 + u),
+      kripto: base.kripto * (1 + k) * (1 + u),
+      tabungan: base.tabungan,
+      etf: base.etf * (1 + u),
+      rd: base.rd * (1 + i * 0.5)
+    };
+    var keys = ['saham', 'emas', 'kripto', 'tabungan', 'etf', 'rd'];
+    var labels = { saham: 'Saham BEI', emas: 'Emas', kripto: 'Kripto', tabungan: 'Tabungan', etf: 'ETF', rd: 'Reksa dana' };
+    var total0 = 1284.56, total = 0;
+    keys.forEach(function (key) { total += after[key]; });
+    var dots = function (n) { return String(Math.round(Math.abs(n))).replace(/\B(?=(\d{3})+(?!\d))/g, '.'); };
+    var jt = function (n) { return (n < 0 ? '−' : n > 0 ? '+' : '') + 'Rp ' + Math.abs(n).toFixed(1).replace('.', ',') + ' jt'; };
+    var pct = function (n) { return (n < 0 ? '−' : n > 0 ? '+' : '') + Math.abs(n).toFixed(1).replace('.', ',') + '%'; };
+    var d = total - total0;
+    var diffs = keys.map(function (key) { return after[key] - base[key]; });
+    var maxAbs = Math.max.apply(null, diffs.map(Math.abs).concat([1]));
+    var impacts = keys.map(function (key, idx) {
+      var df = diffs[idx];
+      var w = Math.round(Math.abs(df) / maxAbs * 100);
+      return { label: labels[key], neg: df < 0 ? w : 0, pos: df > 0 ? w : 0, text: Math.abs(df) < 0.05 ? '—' : jt(df), color: df < 0 ? DN : df > 0 ? UP : NE };
+    });
+    var mk = function (id, label, key, min, max) {
+      var val = s[key];
+      return {
+        id: id, label: label, min: min, max: max, value: val,
+        text: (val > 0 ? '+' : val < 0 ? '−' : '') + Math.abs(val) + '%',
+        color: val < 0 ? DN : val > 0 ? UP : NE,
+        onChange: function (ev) { var o = {}; o[key] = Number(ev.target.value); self.setState(o); }
+      };
+    };
+    return {
+      total: 'Rp ' + dots(total * 1e6),
+      delta: (d < 0 ? '−' : '+') + 'Rp ' + dots(d * 1e6) + ' (' + pct(d / total0 * 100) + ')',
+      deltaColor: d < -0.0005 ? DN : d > 0.0005 ? UP : NE,
+      sliders: [
+        mk('sl-kripto', 'Kripto (harga USD)', 'k', -50, 50),
+        mk('sl-ihsg', 'IHSG', 'i', -30, 30),
+        mk('sl-emas', 'Emas (harga USD)', 'e', -20, 20),
+        mk('sl-usd', 'Kurs USD/IDR', 'u', -10, 20)
+      ],
+      impacts: impacts,
+      presetDown: function () { self.setState({ k: -30, i: -10, e: 5, u: 5 }); },
+      presetRupiah: function () { self.setState({ k: 0, i: -5, e: 0, u: 10 }); },
+      reset: function () { self.setState({ k: 0, i: 0, e: 0, u: 0 }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

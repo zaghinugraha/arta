@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Aset lain (tidak ada di mockup): rumah sederhana warna #8C7A6B, gaya sama dengan ilustrasi lain. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp" android:height="48dp" android:viewportWidth="48" android:viewportHeight="48">
+    <path android:pathData="M11,23L24,12L37,23V39a2,2 0,0 1,-2 2H13a2,2 0,0 1,-2 -2Z" android:fillColor="#D9CEC4" android:strokeColor="#8C7A6B" android:strokeWidth="1.6" android:strokeLineJoin="round"/>
+    <path android:pathData="M7,25L24,10L41,25" android:strokeColor="#8C7A6B" android:strokeWidth="2.4" android:strokeLineCap="round" android:strokeLineJoin="round"/>
+    <path android:pathData="M21,41v-8a1.5,1.5 0,0 1,1.5 -1.5h3a1.5,1.5 0,0 1,1.5 1.5v8z" android:fillColor="#8C7A6B"/>
+    <path android:pathData="M15,26h4v4h-4zM29,26h4v4h-4z" android:fillColor="#F6F1EC" android:strokeColor="#8C7A6B" android:strokeWidth="1"/>
+    <path android:pathData="M30,9h3v6l-3,-2.5z" android:fillColor="#8C7A6B"/>
+</vector>

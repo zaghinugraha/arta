@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Teks UI bahasa Indonesia (default). Tambahkan values-en/strings.xml untuk bahasa Inggris. -->
+<resources>
+    <string name="app_name">Arta</string>
+
+    <!-- Navigasi -->
+    <string name="nav_summary">Ringkasan</string>
+    <string name="nav_simulation">Simulasi</string>
+    <string name="nav_advisor">Advisor</string>
+    <string name="nav_settings">Pengaturan</string>
+    <string name="add_position">Tambah posisi</string>
+    <string name="back">Kembali</string>
+    <string name="options">Opsi</string>
+    <string name="close">Tutup</string>
+    <string name="cancel">Batal</string>
+    <string name="save">Simpan</string>
+    <string name="delete">Hapus</string>
+    <string name="skip">Lewati</string>
+    <string name="continue_">Lanjut</string>
+    <string name="reset">Reset</string>
+    <string name="today">hari ini</string>
+    <string name="now">Sekarang</string>
+    <string name="after">Setelah</string>
+    <string name="amount_hidden">Nominal disembunyikan</string>
+
+    <!-- Kelas aset -->
+    <string name="class_stock">Saham BEI</string>
+    <string name="class_stock_short">Saham</string>
+    <string name="class_etf">ETF</string>
+    <string name="class_mutual_fund">Reksa dana</string>
+    <string name="class_crypto">Kripto</string>
+    <string name="class_gold">Emas</string>
+    <string name="class_cash">Tabungan</string>
+    <string name="class_other">Aset lain</string>
+
+    <!-- Satuan -->
+    <string name="unit_lot">lot</string>
+    <string name="unit_share">lembar</string>
+    <string name="unit_unit">unit</string>
+    <string name="unit_coin">koin</string>
+    <string name="unit_gram">gram</string>
+    <string name="unit_currency">saldo</string>
+
+    <!-- Jenis lokasi -->
+    <string name="loc_broker">Broker</string>
+    <string name="loc_crypto_exchange">Exchange kripto</string>
+    <string name="loc_bank">Bank</string>
+    <string name="loc_physical">Fisik</string>
+    <string name="loc_platform">Platform</string>
+    <string name="loc_wallet">Dompet</string>
+    <string name="loc_other">Lainnya</string>
+
+    <!-- Kunci -->
+    <string name="lock_prompt_title">Buka Arta</string>
+    <string name="lock_body">Data terenkripsi di perangkat ini. Gunakan sidik jari atau kunci layar untuk membuka.</string>
+    <string name="lock_unlock">Buka kunci</string>
+    <string name="recovery_title">Data tidak bisa dibuka</string>
+    <string name="recovery_body">Kunci enkripsi di perangkat ini tidak valid lagi (misalnya karena sidik jari baru didaftarkan atau kunci layar diubah). Data lama tidak bisa dipulihkan. Satu-satunya cadangan adalah file ekspor CSV yang pernah kamu simpan.</string>
+    <string name="recovery_reset">Hapus data &amp; mulai ulang</string>
+    <string name="recovery_confirm_title">Hapus semua data?</string>
+    <string name="recovery_confirm_body">Database terenkripsi dan kunci akan dihapus permanen. Tindakan ini tidak bisa dibatalkan.</string>
+
+    <!-- Ringkasan -->
+    <string name="account">Akun</string>
+    <string name="hide_amounts">Sembunyikan nominal</string>
+    <string name="show_amounts">Tampilkan nominal</string>
+    <string name="tab_overview">Ringkasan</string>
+    <string name="tab_classes">Kelas aset</string>
+    <string name="tab_locations">Lokasi</string>
+    <string name="total_wealth">Total kekayaan</string>
+    <string name="chart_desc">Grafik kekayaan, rentang %1$s</string>
+    <string name="stat_month">Bulan ini</string>
+    <string name="stat_year">Tahun ini</string>
+    <string name="stat_locations">Lokasi</string>
+    <string name="section_allocation">Alokasi</string>
+    <string name="section_classes">Kelas aset</string>
+    <string name="per_location">Per lokasi →</string>
+    <string name="locations_summary">%1$d lokasi · terbesar %2$s (%3$s)</string>
+    <string name="over_limit">Di atas batas %1$s</string>
+    <string name="empty_title">Belum ada aset</string>
+    <string name="empty_body">Catat di mana asetmu disimpan dan berapa jumlahnya. Harga dan kurs mengikuti otomatis.</string>
+    <string name="of_total">dari total</string>
+    <string name="no_positions_in_class">Belum ada posisi di kelas ini.</string>
+
+    <!-- Lokasi & posisi -->
+    <string name="location">Lokasi</string>
+    <string name="location_options">Opsi lokasi</string>
+    <string name="location_not_found">Lokasi tidak ditemukan.</string>
+    <string name="position_not_found">Posisi tidak ditemukan.</string>
+    <string name="edit_location">Edit lokasi</string>
+    <string name="change_type">Ubah jenis</string>
+    <string name="archive">Arsipkan</string>
+    <string name="unarchive">Keluarkan dari arsip</string>
+    <string name="archived">diarsipkan</string>
+    <string name="archive_body">Lokasi yang diarsipkan tidak dihitung di total kekayaan. Datanya tetap tersimpan dan bisa dikembalikan dari Pengaturan.</string>
+    <string name="unarchive_body">Lokasi ini akan kembali dihitung di total kekayaan.</string>
+    <string name="delete_location">Hapus lokasi</string>
+    <string name="delete_location_body">Lokasi beserta semua posisi dan riwayat transaksinya akan dihapus permanen.</string>
+    <string name="delete_position">Hapus posisi</string>
+    <string name="delete_position_body">Posisi beserta riwayat transaksinya akan dihapus permanen.</string>
+    <string name="delete_txn">Hapus transaksi</string>
+    <string name="delete_txn_body">Transaksi ini dihapus dari riwayat. Jumlah posisi tidak berubah; ubah jumlah secara manual bila perlu.</string>
+    <string name="share_of_total">Porsi dari total kekayaan</string>
+    <string name="over_limit_long">Melebihi batas konsentrasi %1$s yang kamu atur</string>
+    <string name="limit_marker">Garis = batas konsentrasi %1$s</string>
+    <string name="unrealized_pl">Untung/rugi belum terealisasi</string>
+    <string name="counted_from">Dihitung dari</string>
+    <string name="x_of_y_positions">%1$d dari %2$d posisi</string>
+    <string name="n_positions">%1$d posisi</string>
+    <string name="no_positions_here">Belum ada posisi di lokasi ini.</string>
+    <string name="record_trade">Catat beli/jual</string>
+    <string name="record_deposit">Catat setor/tarik</string>
+    <string name="name">Nama</string>
+    <string name="note">Catatan (opsional)</string>
+    <string name="balance">Saldo</string>
+    <string name="quantity">Jumlah</string>
+    <string name="amount">Nominal</string>
+    <string name="last_price">Harga terakhir</string>
+    <string name="avg_price">Harga rata-rata</string>
+    <string name="no_price">Belum ada harga</string>
+    <string name="price_missing_hint">Harga belum tersedia. Tarik untuk memperbarui, atau isi harga manual.</string>
+    <string name="price_meta">%1$s · %2$s</string>
+    <string name="stale">basi</string>
+    <string name="lot_hint">1 lot = 100 lembar</string>
+    <string name="pl_line">P/L %1$s (%2$s)</string>
+    <string name="no_buy_history">Tanpa riwayat beli</string>
+    <string name="no_buy_history_hint">Tanpa riwayat beli — untung/rugi tidak dihitung. Catat harga beli untuk melihatnya.</string>
+    <string name="change_quantity">Ubah jumlah</string>
+    <string name="change_quantity_note">Jumlah posisi adalah sumber kebenaran. Perubahan dicatat sebagai penyesuaian.</string>
+    <string name="set_price">Isi harga manual</string>
+    <string name="price_per_unit">Harga per %1$s (%2$s)</string>
+    <string name="price_per_unit_short">Harga (%1$s)</string>
+    <string name="per_share">per lembar</string>
+    <string name="fee_optional">Biaya (opsional)</string>
+    <string name="date_iso">Tanggal (TTTT-BB-HH)</string>
+    <string name="gold_buyback_note">Isi harga buyback per gram (Antam/Pegadaian) hari ini.</string>
+    <string name="manual_price_note">Nilai/NAB per unit, diisi manual.</string>
+    <string name="trade_note_buy">Harga per unit instrumen (per lembar untuk saham BEI). Jumlah dan harga rata-rata diperbarui otomatis.</string>
+    <string name="txn_history">Riwayat transaksi</string>
+    <string name="no_txn">Belum ada transaksi.</string>
+    <string name="txn_buy">Beli</string>
+    <string name="txn_sell">Jual</string>
+    <string name="txn_deposit">Setor</string>
+    <string name="txn_withdraw">Tarik</string>
+    <string name="txn_dividend">Dividen</string>
+    <string name="txn_adjust">Penyesuaian</string>
+    <string name="src_yahoo">Yahoo Finance (tertunda ±15 menit)</string>
+    <string name="src_coingecko">CoinGecko</string>
+    <string name="src_gold_spot">Spot XAU × USD/IDR</string>
+    <string name="src_manual">Diisi manual</string>
+    <string name="src_none">—</string>
+
+    <!-- Tambah posisi -->
+    <string name="step_class">1 · Pilih kelas aset</string>
+    <string name="step_instrument">2 · Cari instrumen</string>
+    <string name="step_location">3 · Pilih lokasi</string>
+    <string name="step_amount">4 · Isi jumlah</string>
+    <string name="search_instrument_hint">Cari %1$s (kode atau nama)</string>
+    <string name="create_manual">Tidak ada di daftar? Buat manual</string>
+    <string name="instrument_name_optional">Nama (opsional)</string>
+    <string name="currency">Mata uang</string>
+    <string name="use_symbol">Pakai \"%1$s\"</string>
+    <string name="manual_hint_stock">Ketik kode saham BEI di kolom cari (mis. BBCA). Harga diambil dari Yahoo Finance (KODE.JK).</string>
+    <string name="manual_hint_crypto">Ketik id koin CoinGecko di kolom cari (mis. bitcoin, ethereum).</string>
+    <string name="manual_hint_etf">Ketik simbol Yahoo Finance di kolom cari (mis. VOO, atau XIIT.JK untuk ETF BEI).</string>
+    <string name="manual_hint_cash">Ketik kode mata uang ISO di kolom cari (mis. IDR, USD, EUR).</string>
+    <string name="manual_hint_other">Ketik nama singkat di kolom cari. Nilai per unit diisi manual.</string>
+    <string name="new_location">Lokasi baru</string>
+    <string name="location_name_hint">Nama lokasi (mis. Stockbit, BCA, Brankas rumah)</string>
+    <string name="create_location">Buat lokasi</string>
+    <string name="record_buy_price">Catat harga beli</string>
+    <string name="record_buy_price_hint">Opsional — untuk menghitung untung/rugi</string>
+
+    <!-- Simulasi -->
+    <string name="sim_title">Simulasi</string>
+    <string name="sim_subtitle">Geser skenario, lihat dampaknya ke kekayaanmu</string>
+    <string name="sim_after">Kekayaan setelah skenario</string>
+    <string name="sim_usd_sentence">%1$s kekayaanmu ikut bergerak bersama USD (kripto, emas, aset berkuotasi USD)</string>
+    <string name="preset_market_down">Pasar turun</string>
+    <string name="preset_rupiah_weak">Rupiah melemah</string>
+    <string name="sl_crypto">Kripto (harga USD)</string>
+    <string name="sl_ihsg">IHSG</string>
+    <string name="sl_gold">Emas (harga USD)</string>
+    <string name="sl_usd">Kurs USD/IDR</string>
+    <string name="sim_impact_title">Dampak per kelas aset</string>
+    <string name="sim_model_note">Model sederhana: reksa dana dianggap campuran (½ × IHSG), tabungan rupiah tidak terpengaruh. Bukan prediksi.</string>
+    <string name="sim_empty">Tambah posisi dulu untuk mencoba simulasi.</string>
+
+    <!-- Advisor -->
+    <string name="chat_history">Riwayat percakapan</string>
+    <string name="new_chat">Percakapan baru</string>
+    <string name="advisor_status">Membaca %1$d lokasi · harga %2$s</string>
+    <string name="template_mode">mode template</string>
+    <string name="chip_concentration">Cek konsentrasi</string>
+    <string name="chip_target">Bandingkan dengan target</string>
+    <string name="chip_usd">Eksposur USD</string>
+    <string name="ask_hint">Tanya soal portofoliomu…</string>
+    <string name="send">Kirim</string>
+    <string name="disclaimer">Informasi dari datamu, bukan nasihat keuangan berlisensi.</string>
+    <string name="open_simulation">Buka simulasi →</string>
+    <string name="no_history">Belum ada riwayat.</string>
+
+    <!-- Pengaturan -->
+    <string name="account_title">Akun Arta</string>
+    <string name="account_subtitle">Data tersimpan di perangkat · terenkripsi</string>
+    <string name="sec_display">Tampilan</string>
+    <string name="sec_prices">Harga &amp; data</string>
+    <string name="sec_limits">Batas &amp; peringatan</string>
+    <string name="sec_advisor">AI Advisor</string>
+    <string name="sec_security">Keamanan &amp; data</string>
+    <string name="set_base_currency">Mata uang dasar</string>
+    <string name="set_theme">Tema</string>
+    <string name="theme_system">Ikuti sistem</string>
+    <string name="theme_light">Terang</string>
+    <string name="theme_dark">Gelap</string>
+    <string name="set_language">Bahasa</string>
+    <string name="language_note">Bahasa Inggris menyusul. Teks sudah disiapkan di strings.xml.</string>
+    <string name="set_glass">Efek kaca</string>
+    <string name="glass_auto">Otomatis</string>
+    <string name="glass_full">Penuh (blur)</string>
+    <string name="glass_light">Ringan (tanpa blur)</string>
+    <string name="glass_off">Mati</string>
+    <string name="glass_note">Otomatis memakai mode ringan di perangkat dengan RAM &lt; 6 GB atau layar 60 Hz (mis. Galaxy Tab A9).</string>
+    <string name="set_price_interval">Update harga</string>
+    <string name="every_n_minutes">Tiap %1$d menit</string>
+    <string name="interval_note">Di latar belakang Android membatasi minimal 15 menit. Interval 5 menit hanya berlaku saat aplikasi terbuka.</string>
+    <string name="set_gold_ref">Acuan harga emas</string>
+    <string name="gold_buyback">Buyback per gram (manual)</string>
+    <string name="gold_spot">Spot XAU</string>
+    <string name="gold_buyback_long">Buyback per gram, diisi manual</string>
+    <string name="gold_spot_long">Spot XAU/USD × kurs (otomatis)</string>
+    <string name="gold_note">Harga buyback mencerminkan harga jual kembali emas fisik. Spot mengikuti harga dunia dan biasanya lebih tinggi.</string>
+    <string name="set_mark_stale">Tandai harga basi</string>
+    <string name="refresh_now">Perbarui harga sekarang</string>
+    <string name="refresh_now_sub">Tarik ke bawah di Ringkasan juga bisa</string>
+    <string name="refreshing">Memperbarui…</string>
+    <string name="last_refresh">Terakhir %1$s</string>
+    <string name="set_concentration">Batas konsentrasi</string>
+    <string name="pct_per_location">%1$d%% per lokasi</string>
+    <string name="set_targets">Target alokasi</string>
+    <string name="not_set">Belum diatur</string>
+    <string name="n_classes">%1$d kelas aset</string>
+    <string name="targets_note">Total harus 100%. Kosongkan kelas yang tidak ditargetkan.</string>
+    <string name="targets_must_100">Total harus 100%</string>
+    <string name="set_notify_move">Notifikasi gerak harian</string>
+    <string name="notify_move_label">Notifikasi gerak &gt; %1$d%%</string>
+    <string name="set_notify_threshold">Ambang notifikasi</string>
+    <string name="set_ai_read">Boleh membaca portofolio</string>
+    <string name="set_ai_daily">Insight harian di Ringkasan</string>
+    <string name="clear_chat">Hapus riwayat percakapan</string>
+    <string name="clear_chat_body">Semua percakapan Advisor dihapus dari perangkat.</string>
+    <string name="set_biometric">Kunci dengan sidik jari</string>
+    <string name="no_device_lock">Atur kunci layar perangkat dulu</string>
+    <string name="biometric_change_failed">Gagal mengubah kunci. Coba lagi.</string>
+    <string name="set_hide_on_open">Sembunyikan nominal saat dibuka</string>
+    <string name="set_auto_lock">Kunci otomatis setelah</string>
+    <string name="n_minutes">%1$d menit</string>
+    <string name="immediately">Segera</string>
+    <string name="archived_locations">Lokasi diarsipkan</string>
+    <string name="set_export">Ekspor data</string>
+    <string name="export_warning">File CSV TIDAK terenkripsi dan berisi seluruh nominal &amp; riwayatmu. Simpan di tempat aman. Ekspor berkala adalah satu-satunya cadangan karena backup cloud dimatikan.</string>
+    <string name="export_continue">Pilih lokasi file</string>
+    <string name="set_demo">Isi data demo</string>
+    <string name="set_demo_sub">Hanya build debug</string>
+    <string name="set_demo_confirm">Isi</string>
+    <string name="demo_body">Mengisi 8 lokasi contoh, posisi, harga, target, dan riwayat snapshot. Data yang sudah ada dengan ID demo akan ditimpa.</string>
+    <string name="delete_all">Hapus semua data</string>
+    <string name="delete_all_body1">Semua lokasi, posisi, transaksi, harga, percakapan, dan setelan akan dihapus dari perangkat ini.</string>
+    <string name="delete_all_confirm_title">Yakin? Tidak bisa dibatalkan</string>
+    <string name="delete_all_body2">Pastikan kamu sudah mengekspor CSV bila masih butuh datanya.</string>
+    <string name="delete_all_confirm">Hapus permanen</string>
+    <string name="footer">harga dari sumber publik, bisa tertunda</string>
+
+    <!-- Onboarding -->
+    <string name="onb_title">Selamat datang di Arta</string>
+    <string name="onb_body">Arta menjawab satu pertanyaan: apa yang aku punya, di mana, dan berapa nilainya sekarang?</string>
+    <string name="onb_point1">Kelompokkan aset berdasarkan tempat menyimpannya.</string>
+    <string name="onb_point2">Cukup isi jumlah; harga dan kurs mengikuti otomatis.</string>
+    <string name="onb_point3">Semua data terenkripsi di perangkat ini — tanpa server.</string>
+    <string name="onb_start">Mulai</string>
+    <string name="onb_location_title">Lokasi pertama</string>
+    <string name="onb_location_body">Di mana kamu menyimpan aset? Broker, exchange, bank, brankas, dst.</string>
+    <string name="onb_next">Lanjut ke posisi pertama</string>
+
+    <!-- Notifikasi -->
+    <string name="notif_channel_move">Pergerakan harian</string>
+    <string name="notif_move_up">naik</string>
+    <string name="notif_move_down">turun</string>
+    <string name="notif_move_text">Kekayaanmu %1$s %2$s hari ini.</string>
+</resources>

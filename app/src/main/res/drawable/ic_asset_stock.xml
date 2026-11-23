@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Saham: lembar dokumen, dua garis teks, grafik naik hijau. Dari design/FrostRingkasan.dc.html (isSaham). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp" android:height="48dp" android:viewportWidth="48" android:viewportHeight="48">
+    <path android:pathData="M13,6h16l8,8v26a2,2 0,0 1,-2 2H13a2,2 0,0 1,-2 -2V8a2,2 0,0 1,2 -2z"
+        android:fillColor="#F8F9FD" android:strokeColor="#4A67C9" android:strokeWidth="1.8" android:strokeLineJoin="round"/>
+    <path android:pathData="M29,6v6a2,2 0,0 0,2 2h6"
+        android:fillColor="#DCE3F7" android:strokeColor="#4A67C9" android:strokeWidth="1.8" android:strokeLineJoin="round"/>
+    <path android:pathData="M16,14h9M16,18.5h6" android:strokeColor="#9AAAD9" android:strokeWidth="1.8" android:strokeLineCap="round"/>
+    <path android:pathData="M16,35l5,-6 4,3 7,-9" android:strokeColor="#2E9E6A" android:strokeWidth="2.4"
+        android:strokeLineCap="round" android:strokeLineJoin="round"/>
+    <path android:pathData="M30.2,23a1.8,1.8 0 1,0 3.6,0a1.8,1.8 0 1,0 -3.6,0Z" android:fillColor="#2E9E6A"/>
+</vector>

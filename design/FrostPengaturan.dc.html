@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Arta — Pengaturan</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="position: relative; width: 412px; height: 891px; overflow: hidden; background: {{ t.bg }}; color: {{ t.on }}; font-family: 'Plus Jakarta Sans', system-ui, sans-serif">
+
+  <div style="position: absolute; inset: 0; overflow-y: auto; scrollbar-width: none; padding: 100px 0 96px 0; box-sizing: border-box">
+
+    <a href="#" style="margin: 12px 16px 4px 16px; border-radius: 24px; padding: 16px; background: {{ t.wash }}; color: inherit; text-decoration: none; display: flex; align-items: center; gap: 14px">
+      <svg width="52" height="52" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="13" fill="{{ t.accent }}"></circle><circle cx="14" cy="14" r="9.5" fill="none" stroke="{{ t.onAccent }}" stroke-opacity="0.35" stroke-width="1"></circle><path d="M9.5 18.5 L14 8.5 L18.5 18.5 M11.3 15h5.4" fill="none" stroke="{{ t.onAccent }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <div style="flex: 1 1 auto">
+        <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 800; letter-spacing: -0.02em">Akun Arta</div>
+        <div style="font-size: 13px; color: {{ t.muted }}; margin-top: 2px">Data tersimpan di perangkat · terenkripsi</div>
+      </div>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{ t.muted }}" stroke-width="2" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+    </a>
+
+    <sc-for list="{{ sections }}" as="sec" hint-placeholder-count="5">
+      <div style="padding: 22px 16px 6px 16px; font-size: 13px; font-weight: 700; color: {{ t.accent }}">{{ sec.title }}</div>
+      <sc-for list="{{ sec.rows }}" as="row" hint-placeholder-count="3">
+        <div style="min-height: {{ row.h }}; box-sizing: border-box; padding: 0 16px; display: flex; align-items: center; gap: 14px; border-top: {{ row.divider }}">
+          <span style="width: 38px; height: 38px; flex: 0 0 auto; border-radius: 12px; background: {{ row.tile }}; color: {{ row.color }}; display: flex; align-items: center; justify-content: center">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ row.icon }}"></path></svg>
+          </span>
+          <sc-if value="{{ row.isDanger }}" hint-placeholder-val="{{ false }}">
+            <button style="flex: 1 1 auto; height: 52px; border: 0; padding: 0; background: transparent; text-align: left; font-family: inherit; font-size: 16px; color: {{ t.down }}; cursor: pointer">{{ row.label }}</button>
+          </sc-if>
+          <sc-if value="{{ row.isNav }}" hint-placeholder-val="{{ true }}">
+            <a href="#" style="flex: 1 1 auto; min-height: 60px; color: inherit; text-decoration: none; display: flex; flex-direction: column; justify-content: center; gap: 2px">
+              <span style="font-size: 16px">{{ row.label }}</span>
+              <span style="font-size: 14px; color: {{ t.muted }}">{{ row.value }}</span>
+            </a>
+          </sc-if>
+          <sc-if value="{{ row.isToggle }}" hint-placeholder-val="{{ false }}">
+            <span id="{{ row.id }}" style="flex: 1 1 auto; font-size: 16px">{{ row.label }}</span>
+            <button role="switch" aria-checked="{{ row.checkedStr }}" aria-labelledby="{{ row.id }}" onClick="{{ row.flip }}" style="width: 52px; height: 32px; flex: 0 0 auto; box-sizing: border-box; padding: 0 4px; border-radius: 999px; border: 2px solid {{ row.trackBorder }}; background: {{ row.trackBg }}; display: flex; align-items: center; justify-content: {{ row.justify }}; cursor: pointer">
+              <span style="width: {{ row.thumb }}; height: {{ row.thumb }}; border-radius: 50%; background: {{ row.thumbBg }}; color: {{ t.accent }}; display: flex; align-items: center; justify-content: center">
+                <sc-if value="{{ row.on }}" hint-placeholder-val="{{ false }}">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>
+                </sc-if>
+              </span>
+            </button>
+          </sc-if>
+        </div>
+      </sc-for>
+    </sc-for>
+
+    <div style="padding: 28px 16px 20px 16px; text-align: center; font-size: 13px; color: {{ t.muted }}"><span style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 800; letter-spacing: -0.04em; color: {{ t.on }}">arta</span> v0.1 · harga dari sumber publik, bisa tertunda</div>
+  </div>
+
+  <header style="position: absolute; left: 0; right: 0; top: 0; height: 100px; box-sizing: border-box; padding: 36px 16px 0 16px; {{ t.frost }}; border-bottom: 1px solid {{ t.hair }}; display: flex; align-items: center">
+    <h1 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 26px; font-weight: 800; letter-spacing: -0.03em">Pengaturan</h1>
+  </header>
+
+  <nav aria-label="Navigasi utama" style="position: absolute; left: 0; right: 0; bottom: 0; height: 80px; box-sizing: border-box; padding-bottom: 16px; {{ t.frost }}; border-top: 1px solid {{ t.hair }}; display: flex; align-items: center; justify-content: space-around">
+    <sc-for list="{{ nav }}" as="n" hint-placeholder-count="4">
+      <a href="{{ n.href }}" aria-label="{{ n.label }}" aria-current="{{ n.current }}" style="width: 64px; height: 52px; color: {{ n.fg }}; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px">
+        <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{{ n.sw }}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ n.icon }}"></path></svg>
+        <span style="width: 5px; height: 5px; border-radius: 50%; background: {{ n.dot }}"></span>
+      </a>
+    </sc-for>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["light","dark"],"default":"light"},"$preview":{"width":412,"height":891}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var self = this;
+    var isDark = this.props.theme === 'dark';
+    var TH = {
+      light: { bg: '#FCFCFD', on: '#10131A', muted: '#5A6372', hair: '#E7EAEE', accent: '#0B6E69', onAccent: '#FFFFFF', wash: '#E3F3F0', down: '#C2362B', offBorder: '#7A828C',
+        frost: 'background: rgba(252,252,253,0.76); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%)',
+        pal: { blue: ['#4A67C91A', '#0B6E69'], gold: ['#C99A2E1F', '#8A6512'], violet: ['#7E63CF1A', '#5B43B0'], teal: ['#3E9A8C1A', '#1F7468'], pink: ['#C25E8C1A', '#9A3D69'], slate: ['#6E78861A', '#4A5462'], red: ['#C2362B14', '#C2362B'] } },
+      dark: { bg: '#0B0C0F', on: '#E9EBEF', muted: '#8E96A1', hair: '#22252B', accent: '#4FD1C5', onAccent: '#0B0C0F', wash: '#0E2624', down: '#FF7A6E', offBorder: '#7A828C',
+        frost: 'background: rgba(11,12,15,0.74); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%)',
+        pal: { blue: ['#8AA0F026', '#A9BAF7'], gold: ['#E5BE5C26', '#EDCB79'], violet: ['#AE98F026', '#C4B3F5'], teal: ['#6FCDBE24', '#8ED9CD'], pink: ['#EB9BC026', '#F0B3CF'], slate: ['#A4ADB924', '#BCC3CD'], red: ['#FF7A6E24', '#FF7A6E'] } }
+    };
+    var t = isDark ? TH.dark : TH.light;
+    var defaults = { stale: true, move: true, aiRead: true, aiDaily: true, bio: true, hideOnOpen: false };
+    var st = Object.assign({}, defaults, (this.state && this.state.t) || {});
+    var I = {
+      cur: 'M12 3v18M16 7h-6a3 3 0 0 0 0 6h4a3 3 0 0 1 0 6H8',
+      theme: 'M12 3a9 9 0 1 1 0 18a9 9 0 1 1 0-18zM12 3v18',
+      lang: 'M12 3a9 9 0 1 1 0 18a9 9 0 1 1 0-18zM3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18',
+      refresh: 'M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7',
+      gold: 'M4 18l3-8h10l3 8zM8 10l2-4h4l2 4',
+      clock: 'M12 3a9 9 0 1 1 0 18a9 9 0 1 1 0-18zM12 7v5l3 2',
+      pie: 'M12 3a9 9 0 1 0 9 9h-9zM15 3.5A9 9 0 0 1 20.5 9H15z',
+      target: 'M12 3a9 9 0 1 1 0 18a9 9 0 1 1 0-18zM12 7a5 5 0 1 1 0 10a5 5 0 1 1 0-10z',
+      bell: 'M6 8a6 6 0 0 1 12 0c0 7 3 8 3 8H3s3-1 3-8M10.3 20a1.9 1.9 0 0 0 3.4 0',
+      spark: 'M11 3l1.8 5L18 10l-5.2 2L11 17l-1.8-5L4 10l5.2-2z',
+      list: 'M4 6h16M4 12h10M4 18h13',
+      trash: 'M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13',
+      lock: 'M6 11h12v10H6zM8 11V7a4 4 0 0 1 8 0v4',
+      eyeoff: 'M3 3l18 18M10.6 5.1A10.8 10.8 0 0 1 12 5c6.5 0 10 7 10 7a17 17 0 0 1-3.2 4.1M6.6 6.6C3.7 8.4 2 12 2 12s3.5 7 10 7a9.7 9.7 0 0 0 5.4-1.6',
+      server: 'M4 4h16v6H4zM4 14h16v6H4zM8 7h.01M8 17h.01',
+      export: 'M12 3v12M7 10l5 5 5-5M5 21h14'
+    };
+    var nav_ = function (label, value, icon, c) { return { kind: 'nav', label: label, value: value, icon: icon, c: c }; };
+    var tog = function (key, label, icon, c) { return { kind: 'toggle', key: key, label: label, icon: icon, c: c }; };
+    var danger = function (label, icon) { return { kind: 'danger', label: label, icon: icon, c: 'red' }; };
+    var raw = [
+      { title: 'Tampilan', rows: [nav_('Mata uang dasar', 'IDR · Rupiah', I.cur, 'blue'), nav_('Tema', 'Ikuti sistem', I.theme, 'slate'), nav_('Bahasa', 'Indonesia', I.lang, 'teal')] },
+      { title: 'Harga & data', rows: [nav_('Update harga', 'Tiap 5 menit', I.refresh, 'teal'), nav_('Acuan harga emas', 'Buyback Antam', I.gold, 'gold'), tog('stale', 'Tandai harga basi', I.clock, 'slate')] },
+      { title: 'Batas & peringatan', rows: [nav_('Batas konsentrasi', '25% per lokasi', I.pie, 'pink'), nav_('Target alokasi', '6 kelas aset', I.target, 'violet'), tog('move', 'Notifikasi gerak > 3%', I.bell, 'gold')] },
+      { title: 'AI Advisor', rows: [tog('aiRead', 'Boleh membaca portofolio', I.spark, 'blue'), tog('aiDaily', 'Insight harian di Ringkasan', I.list, 'violet'), danger('Hapus riwayat percakapan', I.trash)] },
+      { title: 'Keamanan & data', rows: [tog('bio', 'Kunci dengan sidik jari', I.lock, 'blue'), tog('hideOnOpen', 'Sembunyikan nominal saat dibuka', I.eyeoff, 'slate'), nav_('Sync ke server sendiri', 'Nonaktif', I.server, 'slate'), nav_('Ekspor data', 'CSV', I.export, 'teal')] }
+    ];
+    var sections = raw.map(function (sec, si) {
+      return {
+        title: sec.title,
+        rows: sec.rows.map(function (r, i) {
+          var on = r.kind === 'toggle' ? !!st[r.key] : false;
+          var p = t.pal[r.c];
+          return {
+            label: r.label, value: r.value || '', icon: r.icon, tile: p[0], color: p[1],
+            id: 'aset-' + si + '-' + i,
+            h: r.kind === 'nav' ? '66px' : '58px',
+            divider: i === 0 ? 'none' : '1px solid ' + t.hair,
+            isNav: r.kind === 'nav', isToggle: r.kind === 'toggle', isDanger: r.kind === 'danger',
+            on: on, checkedStr: on ? 'true' : 'false',
+            trackBg: on ? t.accent : 'transparent',
+            trackBorder: on ? t.accent : t.offBorder,
+            thumb: on ? '24px' : '16px',
+            thumbBg: on ? t.onAccent : t.offBorder,
+            justify: on ? 'flex-end' : 'flex-start',
+            flip: function () {
+              if (r.kind !== 'toggle') return;
+              var nt = Object.assign({}, st); nt[r.key] = !st[r.key];
+              self.setState({ t: nt });
+            }
+          };
+        })
+      };
+    });
+    var navDef = [
+      { label: 'Ringkasan', href: 'FrostRingkasan.dc.html', icon: 'M3 3h8v8H3zM13 3h8v5h-8zM13 10h8v11h-8zM3 13h8v8H3z' },
+      { label: 'Simulasi', href: '#', icon: 'M4 19h16M7 15l4-5 3 3 5-7' },
+      { label: 'Advisor', href: 'FrostAdvisor.dc.html', icon: 'M11 2l2 5.5L18.5 9.5 13 11.5 11 17l-2-5.5L3.5 9.5 9 7.5zM19 14l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9z' },
+      { label: 'Pengaturan', href: 'FrostPengaturan.dc.html', icon: 'M12 8.5a3.5 3.5 0 1 1 0 7a3.5 3.5 0 1 1 0-7zM12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1' }
+    ];
+    var nav = navDef.map(function (n, i) {
+      var on = i === 3;
+      return { label: n.label, href: n.href, icon: n.icon, current: on ? 'page' : 'false', fg: on ? t.accent : t.muted, sw: on ? '2.4' : '1.8', dot: on ? t.accent : 'transparent' };
+    });
+    return { t: t, sections: sections, nav: nav };
+  }
+}
+</script>
+</body>
+</html>

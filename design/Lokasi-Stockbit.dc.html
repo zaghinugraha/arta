@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Atlas — Lokasi Stockbit</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#0B0C0E}
+a{color:inherit;text-decoration:none}a:hover{color:inherit}
+button{font:inherit}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #0B0C0E; color: #EDEEF0; font-family: Inter, system-ui, sans-serif; padding: 20px 16px 20px 16px; display: flex; flex-direction: column; gap: 16px; overflow: hidden">
+
+  <div style="display: flex; align-items: center; justify-content: space-between; height: 44px">
+    <a href="Main.dc.html" aria-label="Kembali ke peta" style="width: 44px; height: 44px; border-radius: 12px; border: 1px solid #26292E; background: #15171A; display: flex; align-items: center; justify-content: center">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EDEEF0" stroke-width="2" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>
+    </a>
+    <span style="font-size: 13px; color: #9097A0; letter-spacing: 0.08em; text-transform: uppercase">Lokasi</span>
+    <button aria-label="Opsi lokasi" style="width: 44px; height: 44px; border-radius: 12px; border: 1px solid #26292E; background: #15171A; color: #EDEEF0; display: flex; align-items: center; justify-content: center; cursor: pointer">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.8"></circle><circle cx="12" cy="12" r="1.8"></circle><circle cx="19" cy="12" r="1.8"></circle></svg>
+    </button>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 10px">
+    <div style="display: flex; align-items: center; gap: 12px">
+      <div style="width: 44px; height: 44px; border-radius: 12px; background: #1D2810; border: 1px solid #3A5214; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 20px; color: #C8F03C">S</div>
+      <div>
+        <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 22px; letter-spacing: -0.01em">Stockbit</div>
+        <div style="font-size: 13px; color: #9097A0">Saham BEI · 5 posisi + kas RDN</div>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <span style="font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 28px; letter-spacing: -0.03em">Rp 411.059.200</span>
+      <div style="display: flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 13px">
+        <span style="color: #C8F03C">+Rp 6.139.000 (+1,52%)</span>
+        <span style="color: #9097A0; font-family: Inter, sans-serif">hari ini</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding: 12px 14px; border-radius: 12px; background: #15171A; border: 1px solid #26292E; display: flex; flex-direction: column; gap: 8px">
+    <div style="display: flex; justify-content: space-between; align-items: baseline">
+      <span style="font-size: 13px; color: #9097A0">Porsi dari total kekayaan</span>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 15px; font-weight: 600">32%</span>
+    </div>
+    <div style="position: relative; height: 8px; border-radius: 4px; background: #26292E">
+      <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 32%; border-radius: 4px; background: #C8F03C"></div>
+      <div style="position: absolute; left: 25%; top: -4px; bottom: -4px; width: 2px; background: #EDEEF0"></div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: #FF9A8E">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3l10 18H2L12 3z"></path><path d="M12 10v5M12 18v.01"></path></svg>
+      Melebihi batas konsentrasi 25% yang kamu atur
+    </div>
+  </div>
+
+  <div style="display: flex; gap: 8px">
+    <div style="flex: 1 1 0; padding: 10px 12px; border-radius: 12px; border: 1px solid #26292E">
+      <div style="font-size: 12px; color: #9097A0">Untung belum terealisasi</div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 15px; font-weight: 600; color: #C8F03C; margin-top: 2px">+Rp 15,65 jt</div>
+    </div>
+    <div style="flex: 1 1 0; padding: 10px 12px; border-radius: 12px; border: 1px solid #26292E">
+      <div style="font-size: 12px; color: #9097A0">Dihitung dari</div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 15px; font-weight: 600; margin-top: 2px">4 dari 5 posisi</div>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0">
+    <div style="display: flex; justify-content: space-between; font-size: 11px; color: #9097A0; text-transform: uppercase; letter-spacing: 0.08em; padding-bottom: 6px; border-bottom: 1px solid #26292E">
+      <span>Posisi</span><span>Nilai · hari ini</span>
+    </div>
+    <sc-for list="{{ rows }}" as="r" hint-placeholder-count="6">
+      <div style="display: flex; align-items: center; gap: 12px; height: 56px; border-bottom: 1px solid #1C1E22">
+        <div style="width: 48px; flex: 0 0 auto; font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 13px">{{ r.ticker }}</div>
+        <div style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 3px">
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #B4BAC2">{{ r.qty }}</span>
+          <sc-if value="{{ r.hasPl }}" hint-placeholder-val="{{ true }}">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: {{ r.plColor }}">{{ r.pl }}</span>
+          </sc-if>
+          <sc-if value="{{ r.noPl }}" hint-placeholder-val="{{ false }}">
+            <span style="align-self: flex-start; font-size: 11px; color: #9097A0; border: 1px dashed #3A3E45; border-radius: 4px; padding: 0 5px">{{ r.note }}</span>
+          </sc-if>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 3px">
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600">{{ r.value }}</span>
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: {{ r.chgColor }}">{{ r.chg }}</span>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="display: flex; gap: 8px">
+    <button style="flex: 1 1 0; height: 48px; border-radius: 12px; border: 1px solid #26292E; background: #15171A; color: #EDEEF0; font-size: 14px; font-weight: 500; cursor: pointer">Catat beli/jual</button>
+    <button style="flex: 1 1 0; height: 48px; border-radius: 12px; border: 0; background: #C8F03C; color: #0B0C0E; font-size: 14px; font-weight: 600; cursor: pointer">+ Tambah posisi</button>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var UP = '#C8F03C', DN = '#FF9A8E', NE = '#9097A0';
+    var rows = [
+      { ticker: 'BBCA', qty: '150 lot · @9.250', value: 'Rp 138,75 jt', chg: '+1,9%', chgColor: UP, pl: 'P/L +Rp 12,75 jt (+10,1%)', plColor: UP },
+      { ticker: 'BMRI', qty: '120 lot · @6.100', value: 'Rp 73,20 jt', chg: '+2,4%', chgColor: UP, pl: 'P/L +Rp 7,80 jt (+11,9%)', plColor: UP },
+      { ticker: 'TLKM', qty: '200 lot · @2.980', value: 'Rp 59,60 jt', chg: '−0,7%', chgColor: DN, pl: 'P/L −Rp 8,40 jt (−12,4%)', plColor: DN },
+      { ticker: 'ASII', qty: '100 lot · @5.200', value: 'Rp 52,00 jt', chg: '+1,2%', chgColor: UP, pl: 'P/L +Rp 3,50 jt (+7,2%)', plColor: UP },
+      { ticker: 'ANTM', qty: '250 lot · @1.620', value: 'Rp 40,50 jt', chg: '+3,8%', chgColor: UP, note: 'Tanpa riwayat beli' },
+      { ticker: 'KAS', qty: 'Saldo RDN', value: 'Rp 47,01 jt', chg: '—', chgColor: NE, note: 'Kas' }
+    ];
+    return {
+      rows: rows.map(function (r) { return Object.assign({}, r, { hasPl: !!r.pl, noPl: !r.pl }); })
+    };
+  }
+}
+</script>
+</body>
+</html>

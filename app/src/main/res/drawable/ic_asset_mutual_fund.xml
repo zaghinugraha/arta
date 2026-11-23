@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Reksa dana: kantong uang abu dengan tulisan "Rp" sebagai path (isRd). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp" android:height="48dp" android:viewportWidth="48" android:viewportHeight="48">
+    <path android:pathData="M18,14c2,-3.5 4,-6 6,-6s4,2.5 6,6z" android:fillColor="#9AA4B1"/>
+    <path android:pathData="M18.5,13.5h11l-3.2,5.3C32.5,21.5 38,27.5 38,33.5c0,6 -5.5,8.5 -14,8.5s-14,-2.5 -14,-8.5c0,-6 5.5,-12 11.7,-14.7z" android:fillColor="#7D8896"/>
+    <path android:pathData="M20,18.8h8" android:strokeColor="#55606C" android:strokeWidth="3" android:strokeLineCap="round"/>
+    <path android:pathData="M18.6,36.6V29.4h2.4a1.9,1.9 0,0 1,0 3.8h-2.4M20.9,33.2l1.9,3.4M25.2,31.4v6.6M25.2,32.9a1.85,1.85 0,1 1,0 2.6"
+        android:strokeColor="#FFFFFF" android:strokeWidth="1.5" android:strokeLineCap="round" android:strokeLineJoin="round"/>
+    <path android:pathData="M25.2,32.2a2.1,2.1 0,1 1,0 3.6" android:strokeColor="#FFFFFF" android:strokeWidth="1.5" android:strokeLineCap="round"/>
+</vector>

@@ -1,0 +1,8 @@
+# Salin isi ini ke local.properties (file tersebut TIDAK boleh di-commit).
+# sdk.dir diisi otomatis oleh Android Studio.
+
+# --- AI Advisor (provider LLM) ---
+# Kosongkan untuk memakai mode template (tanpa AI).
+LLM_API_KEY=ISI_API_KEY_DI_SINI
+LLM_BASE_URL=https://api.provider-kamu.com/v1
+LLM_MODEL=nama-model

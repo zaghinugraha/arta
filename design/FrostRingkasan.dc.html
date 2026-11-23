@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Arta — Ringkasan</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="position: relative; width: 412px; height: 891px; overflow: hidden; background: {{ t.bg }}; color: {{ t.on }}; font-family: 'Plus Jakarta Sans', system-ui, sans-serif">
+
+  <div style="position: absolute; inset: 0; overflow-y: auto; scrollbar-width: none; padding: 140px 0 100px 0; box-sizing: border-box">
+
+    <sc-if value="{{ isRing }}" hint-placeholder-val="{{ true }}">
+      <div style="margin: 14px 16px 0 16px; border-radius: 26px; padding: 18px 18px 14px 18px; background: {{ t.wash }}; display: flex; flex-direction: column; gap: 4px">
+        <div style="display: flex; justify-content: space-between; align-items: center">
+          <span style="font-size: 14px; color: {{ t.muted }}">Total kekayaan</span>
+          <span style="font-size: 12px; font-weight: 600; color: {{ t.accent }}; background: {{ t.bg }}; border-radius: 999px; padding: 4px 10px">IDR</span>
+        </div>
+        <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 34px; line-height: 1.15; font-weight: 800; letter-spacing: -0.03em; font-variant-numeric: lining-nums tabular-nums">{{ nw }}</span>
+        <div style="display: flex; gap: 6px; font-size: 14px">
+          <span style="color: {{ t.up }}; font-weight: 600">↑ {{ chg }} (0,49%)</span>
+          <span style="color: {{ t.muted }}">hari ini</span>
+        </div>
+        <svg width="344" height="74" viewBox="0 0 358 56" preserveAspectRatio="none" aria-hidden="true" style="margin-top: 10px">
+          <path d="{{ area }}" fill="{{ t.accent }}" fill-opacity="0.12"></path>
+          <path d="{{ line }}" fill="none" stroke="{{ t.accent }}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path>
+        </svg>
+        <div role="group" aria-label="Rentang waktu" style="display: flex; justify-content: space-between; margin-top: 8px">
+          <sc-for list="{{ ranges }}" as="r" hint-placeholder-count="5">
+            <button onClick="{{ r.pick }}" aria-pressed="{{ r.pressed }}" style="height: 34px; min-width: 48px; padding: 0 12px; border: 0; border-radius: 17px; background: {{ r.bg }}; color: {{ r.fg }}; font-family: inherit; font-size: 14px; font-weight: {{ r.weight }}; cursor: pointer">{{ r.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="display: flex; padding: 16px 16px 14px 16px">
+        <sc-for list="{{ stats }}" as="st" hint-placeholder-count="3">
+          <div style="flex: 1 1 0; display: flex; flex-direction: column; gap: 2px; border-left: {{ st.border }}; padding-left: {{ st.pad }}">
+            <span style="font-size: 12px; color: {{ t.muted }}">{{ st.label }}</span>
+            <span style="font-size: 16px; font-weight: 700; color: {{ st.color }}">{{ st.value }}</span>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="height: 1px; background: {{ t.hair }}"></div>
+
+      <a href="FrostAdvisor.dc.html" style="padding: 14px 16px; color: inherit; text-decoration: none; display: flex; align-items: flex-start; gap: 12px">
+        <span style="width: 40px; height: 40px; flex: 0 0 auto; border-radius: 14px; background: {{ t.wash }}; color: {{ t.accent }}; display: flex; align-items: center; justify-content: center">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11 2l2 5.5L18.5 9.5 13 11.5 11 17l-2-5.5L3.5 9.5 9 7.5z"></path><path d="M19 14l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9z"></path></svg>
+        </span>
+        <div style="flex: 1 1 auto; min-width: 0">
+          <div style="font-size: 14px"><b>Advisor</b> <span style="color: {{ t.muted }}">· hari ini</span></div>
+          <div style="font-size: 15px; line-height: 1.4; margin-top: 2px">Porsi Stockbit 32%, di atas batas 25% yang kamu atur.</div>
+        </div>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{ t.muted }}" stroke-width="2" aria-hidden="true" style="margin-top: 10px"><path d="M9 6l6 6-6 6"></path></svg>
+      </a>
+
+      <div style="height: 1px; background: {{ t.hair }}"></div>
+
+      <div style="padding: 16px; display: flex; flex-direction: column; gap: 12px">
+        <div style="display: flex; justify-content: space-between; align-items: baseline">
+          <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 19px; font-weight: 800; letter-spacing: -0.02em">Alokasi</span>
+          <button onClick="{{ goLokasi }}" style="border: 0; background: transparent; padding: 0; height: 32px; font-family: inherit; font-size: 14px; font-weight: 600; color: {{ t.accent }}; cursor: pointer">Per lokasi →</button>
+        </div>
+        <div role="img" aria-label="Saham 32%, emas 22%, kripto 18%, tabungan 16%, ETF 7%, reksa dana 5%" style="display: flex; gap: 3px; height: 16px">
+          <sc-for list="{{ alloc }}" as="a" hint-placeholder-count="6">
+            <span style="flex: {{ a.pct }} 1 0; border-radius: {{ a.radius }}; background: {{ a.color }}"></span>
+          </sc-for>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px 10px; font-size: 13px; color: {{ t.muted }}">
+          <sc-for list="{{ alloc }}" as="a" hint-placeholder-count="6">
+            <span style="display: flex; align-items: center; gap: 6px"><span style="width: 8px; height: 8px; border-radius: 50%; background: {{ a.color }}"></span>{{ a.short }} <b style="color: {{ t.on }}">{{ a.pct }}</b></span>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="height: 1px; background: {{ t.hair }}"></div>
+      <div style="padding: 16px 16px 4px 16px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 19px; font-weight: 800; letter-spacing: -0.02em">Kelas aset</div>
+    </sc-if>
+
+    <sc-if value="{{ showRows }}" hint-placeholder-val="{{ true }}">
+      <sc-for list="{{ rows }}" as="r" hint-placeholder-count="6">
+        <a href="#" style="height: 78px; box-sizing: border-box; padding: 0 16px; border-bottom: 1px solid {{ t.hair }}; color: inherit; text-decoration: none; display: flex; align-items: center; gap: 14px">
+          <span style="width: 52px; height: 52px; flex: 0 0 auto; border-radius: 16px; background: {{ r.tile }}; display: flex; align-items: center; justify-content: center">
+            <sc-if value="{{ r.isSaham }}" hint-placeholder-val="{{ false }}">
+              <svg width="40" height="40" viewBox="0 0 48 48" aria-hidden="true"><path d="M13 6h16l8 8v26a2 2 0 0 1-2 2H13a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z" fill="#F8F9FD" stroke="#4A67C9" stroke-width="1.8" stroke-linejoin="round"></path><path d="M29 6v6a2 2 0 0 0 2 2h6" fill="#DCE3F7" stroke="#4A67C9" stroke-width="1.8" stroke-linejoin="round"></path><path d="M16 14h9M16 18.5h6" stroke="#9AAAD9" stroke-width="1.8" stroke-linecap="round"></path><path d="M16 35l5-6 4 3 7-9" fill="none" stroke="#2E9E6A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="32" cy="23" r="1.8" fill="#2E9E6A"></circle></svg>
+            </sc-if>
+            <sc-if value="{{ r.isEmas }}" hint-placeholder-val="{{ false }}">
+              <svg width="42" height="42" viewBox="0 0 48 48" aria-hidden="true"><path d="M17 21h14l2.5 8h-19z" fill="#D9A62C" stroke="#A8781A" stroke-width="1" stroke-linejoin="round"></path><path d="M18.5 17h11L31 21H17z" fill="#F4D373" stroke="#A8781A" stroke-width="1" stroke-linejoin="round"></path><path d="M6 33h14l2.5 8h-19z" fill="#D4A12A" stroke="#A8781A" stroke-width="1" stroke-linejoin="round"></path><path d="M7.5 29h11L20 33H6z" fill="#F3D271" stroke="#A8781A" stroke-width="1" stroke-linejoin="round"></path><path d="M26 33h14l2.5 8h-19z" fill="#D4A12A" stroke="#A8781A" stroke-width="1" stroke-linejoin="round"></path><path d="M27.5 29h11L40 33H26z" fill="#F3D271" stroke="#A8781A" stroke-width="1" stroke-linejoin="round"></path><path d="M9 37h6M29 37h6M20 25h6" stroke="#F6DE8D" stroke-width="1.6" stroke-linecap="round"></path></svg>
+            </sc-if>
+            <sc-if value="{{ r.isKripto }}" hint-placeholder-val="{{ false }}">
+              <svg width="42" height="42" viewBox="0 0 48 48" aria-hidden="true"><circle cx="30" cy="29" r="13" fill="#6A51B8"></circle><circle cx="21" cy="22" r="15" fill="#8D74D8"></circle><circle cx="21" cy="22" r="11.5" fill="#A68FE6" stroke="#6A51B8" stroke-width="1.4"></circle><text x="21" y="28" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="16" font-weight="800" fill="#FFFFFF">₿</text></svg>
+            </sc-if>
+            <sc-if value="{{ r.isTabungan }}" hint-placeholder-val="{{ false }}">
+              <svg width="42" height="42" viewBox="0 0 48 48" aria-hidden="true"><circle cx="23.5" cy="9.5" r="4.5" fill="#E7BC4F" stroke="#B98C22" stroke-width="1"></circle><path d="M16 19l2.5-6 4.5 5z" fill="#4E9E91"></path><ellipse cx="23" cy="28" rx="14" ry="11" fill="#5FB3A5"></ellipse><rect x="34.5" y="24.5" width="6.5" height="7.5" rx="3" fill="#4E9E91"></rect><circle cx="37" cy="27.5" r="0.9" fill="#1F3D38"></circle><circle cx="39" cy="27.5" r="0.9" fill="#1F3D38"></circle><rect x="14" y="34" width="5" height="8" rx="2" fill="#4E9E91"></rect><rect x="27" y="34" width="5" height="8" rx="2" fill="#4E9E91"></rect><circle cx="31" cy="24" r="1.5" fill="#1F3D38"></circle><rect x="19" y="17.5" width="9" height="2.2" rx="1.1" fill="#2F6E64"></rect><path d="M9.5 26c-3 0-4 3-1.8 4.2" fill="none" stroke="#4E9E91" stroke-width="1.8" stroke-linecap="round"></path></svg>
+            </sc-if>
+            <sc-if value="{{ r.isEtf }}" hint-placeholder-val="{{ false }}">
+              <svg width="40" height="40" viewBox="0 0 48 48" aria-hidden="true"><circle cx="22" cy="26" r="16" fill="#F0C3D6"></circle><path d="M22 26 L22 10 A16 16 0 0 1 37.2 21 Z" fill="#C25E8C"></path><path d="M22 26 L37.2 21 A16 16 0 0 1 31.4 39 Z" fill="#E596B8"></path><path d="M26 22 L26 6 A16 16 0 0 1 41.2 17 Z" fill="#A9497A" opacity="0"></path><path d="M22 26 L31.4 39 A16 16 0 0 1 8 33.5 Z" fill="#D57CA4"></path><circle cx="22" cy="26" r="16" fill="none" stroke="#A9497A" stroke-width="1.2"></circle></svg>
+            </sc-if>
+            <sc-if value="{{ r.isRd }}" hint-placeholder-val="{{ false }}">
+              <svg width="42" height="42" viewBox="0 0 48 48" aria-hidden="true"><path d="M18 14c2-3.5 4-6 6-6s4 2.5 6 6z" fill="#9AA4B1"></path><path d="M18.5 13.5h11l-3.2 5.3C32.5 21.5 38 27.5 38 33.5c0 6-5.5 8.5-14 8.5s-14-2.5-14-8.5c0-6 5.5-12 11.7-14.7z" fill="#7D8896"></path><path d="M20 18.8h8" stroke="#55606C" stroke-width="3" stroke-linecap="round"></path><text x="24" y="35.5" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="10" font-weight="800" fill="#FFFFFF">Rp</text></svg>
+            </sc-if>
+          </span>
+          <div style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+            <span style="font-size: 16px; font-weight: 600">{{ r.name }}</span>
+            <div style="display: flex; align-items: center; gap: 8px">
+              <span style="width: 84px; height: 5px; border-radius: 3px; background: {{ t.track }}; overflow: hidden"><span style="display: block; width: {{ r.barW }}; height: 100%; border-radius: 3px; background: {{ r.color }}"></span></span>
+              <span style="font-size: 13px; color: {{ t.muted }}; font-variant-numeric: tabular-nums">{{ r.pct }}</span>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 3px">
+            <span style="font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums">{{ r.value }}</span>
+            <span style="font-size: 13px; font-weight: 600; color: {{ r.chgColor }}">{{ r.chg }}</span>
+          </div>
+        </a>
+      </sc-for>
+    </sc-if>
+
+    <sc-if value="{{ isLokasi }}" hint-placeholder-val="{{ false }}">
+      <div style="padding: 16px; font-size: 14px; color: {{ t.muted }}; border-bottom: 1px solid {{ t.hair }}">8 lokasi · terbesar Stockbit (32%)</div>
+      <sc-for list="{{ locs }}" as="l" hint-placeholder-count="8">
+        <a href="#" style="min-height: 74px; box-sizing: border-box; padding: 12px 16px; border-bottom: 1px solid {{ t.hair }}; color: inherit; text-decoration: none; display: flex; align-items: center; gap: 14px">
+          <span style="width: 46px; height: 46px; flex: 0 0 auto; border-radius: 50%; background: {{ l.tile }}; color: {{ l.color }}; display: flex; align-items: center; justify-content: center; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 19px; font-weight: 700">{{ l.ini }}</span>
+          <div style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 3px">
+            <span style="font-size: 16px; font-weight: 600">{{ l.name }}</span>
+            <span style="font-size: 13px; color: {{ t.muted }}">{{ l.sub }}</span>
+            <sc-if value="{{ l.warn }}" hint-placeholder-val="{{ false }}">
+              <span style="align-self: flex-start; font-size: 12px; font-weight: 600; color: {{ t.down }}; background: {{ t.downWash }}; border-radius: 6px; padding: 2px 8px; margin-top: 2px">Di atas batas 25%</span>
+            </sc-if>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 3px">
+            <span style="font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums">{{ l.value }}</span>
+            <span style="font-size: 13px; font-weight: 600; color: {{ l.chgColor }}">{{ l.chg }}</span>
+          </div>
+        </a>
+      </sc-for>
+    </sc-if>
+  </div>
+
+  <header style="position: absolute; left: 0; right: 0; top: 0; height: 140px; box-sizing: border-box; padding-top: 36px; {{ t.frost }}; border-bottom: 1px solid {{ t.hair }}">
+    <div style="height: 52px; padding: 0 12px; display: flex; align-items: center; justify-content: space-between">
+      <button aria-label="Akun" style="width: 44px; height: 44px; border: 0; border-radius: 50%; padding: 0; background: {{ t.surf }}; color: {{ t.on }}; display: flex; align-items: center; justify-content: center; cursor: pointer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>
+      </button>
+      <div style="display: flex; align-items: center; gap: 8px">
+        <svg width="26" height="26" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="13" fill="{{ t.accent }}"></circle><circle cx="14" cy="14" r="9.5" fill="none" stroke="{{ t.onAccent }}" stroke-opacity="0.35" stroke-width="1.2"></circle><path d="M9.5 18.5 L14 8.5 L18.5 18.5 M11.3 15h5.4" fill="none" stroke="{{ t.onAccent }}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 26px; font-weight: 800; letter-spacing: -0.05em; line-height: 1">arta</span>
+      </div>
+      <button onClick="{{ toggle }}" aria-label="{{ eyeLabel }}" style="width: 44px; height: 44px; border: 0; border-radius: 50%; padding: 0; background: transparent; color: {{ t.on }}; display: flex; align-items: center; justify-content: center; cursor: pointer">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="{{ eyePath }}"></path></svg>
+      </button>
+    </div>
+    <div role="tablist" aria-label="Tampilan" style="height: 51px; display: flex">
+      <sc-for list="{{ tabs }}" as="tb" hint-placeholder-count="3">
+        <button role="tab" aria-selected="{{ tb.sel }}" onClick="{{ tb.pick }}" style="flex: 1 1 0; border: 0; padding: 0; background: transparent; font-family: inherit; font-size: 15px; font-weight: {{ tb.weight }}; color: {{ tb.fg }}; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 12px; cursor: pointer">
+          {{ tb.label }}
+          <span style="width: 56px; height: 4px; border-radius: 2px; background: {{ tb.bar }}"></span>
+        </button>
+      </sc-for>
+    </div>
+  </header>
+
+  <button aria-label="Tambah posisi" style="position: absolute; right: 16px; bottom: 96px; width: 58px; height: 58px; border: 0; border-radius: 20px; background: {{ t.accent }}; color: {{ t.onAccent }}; box-shadow: 0 8px 20px {{ t.fabShadow }}; display: flex; align-items: center; justify-content: center; cursor: pointer">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+  </button>
+
+  <nav aria-label="Navigasi utama" style="position: absolute; left: 0; right: 0; bottom: 0; height: 80px; box-sizing: border-box; padding-bottom: 16px; {{ t.frost }}; border-top: 1px solid {{ t.hair }}; display: flex; align-items: center; justify-content: space-around">
+    <sc-for list="{{ nav }}" as="n" hint-placeholder-count="4">
+      <a href="{{ n.href }}" aria-label="{{ n.label }}" aria-current="{{ n.current }}" style="width: 64px; height: 52px; color: {{ n.fg }}; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px">
+        <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{{ n.sw }}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ n.icon }}"></path></svg>
+        <span style="width: 5px; height: 5px; border-radius: 50%; background: {{ n.dot }}"></span>
+      </a>
+    </sc-for>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["light","dark"],"default":"light"},"$preview":{"width":412,"height":891}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var self = this;
+    var isDark = this.props.theme === 'dark';
+    var TH = {
+      light: { bg: '#FCFCFD', surf: '#F1F3F6', on: '#10131A', muted: '#5A6372', hair: '#E7EAEE', accent: '#0B6E69', onAccent: '#FFFFFF', wash: '#E3F3F0', up: '#15803D', down: '#C2362B', downWash: '#FBE9E7', track: 'rgba(16,19,26,0.08)', fabShadow: 'rgba(11,110,105,0.35)',
+        frost: 'background: rgba(252,252,253,0.76); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%)',
+        cls: ['#4A67C9', '#C99A2E', '#7E63CF', '#3E9A8C', '#C25E8C', '#6E7886'], tiles: ['#4A67C91A', '#C99A2E1F', '#7E63CF1A', '#3E9A8C1A', '#C25E8C1A', '#6E78861A'] },
+      dark: { bg: '#0B0C0F', surf: '#181A1F', on: '#E9EBEF', muted: '#8E96A1', hair: '#22252B', accent: '#4FD1C5', onAccent: '#0B0C0F', wash: '#0E2624', up: '#4CC38A', down: '#FF7A6E', downWash: '#3A1A17', track: 'rgba(255,255,255,0.10)', fabShadow: 'rgba(0,0,0,0.5)',
+        frost: 'background: rgba(11,12,15,0.74); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%)',
+        cls: ['#8AA0F0', '#E5BE5C', '#AE98F0', '#6FCDBE', '#EB9BC0', '#A4ADB9'], tiles: ['#8AA0F026', '#E5BE5C26', '#AE98F026', '#6FCDBE24', '#EB9BC026', '#A4ADB924'] }
+    };
+    var t = isDark ? TH.dark : TH.light;
+    var s = Object.assign({ hidden: false, range: '1B', tab: 'ring' }, this.state || {});
+    var H = s.hidden;
+    var m = function (x) { return H ? 'Rp ••••' : x; };
+    var paths = {
+      '1H': 'M0 30 L30 32 L60 28 L90 34 L120 30 L150 26 L180 28 L210 22 L240 25 L270 20 L300 22 L330 16 L358 18',
+      '1B': 'M0 40 L30 42 L60 36 L90 38 L120 30 L150 33 L180 26 L210 29 L240 22 L270 25 L300 18 L330 20 L358 14',
+      '3B': 'M0 46 L30 40 L60 44 L90 34 L120 38 L150 28 L180 32 L210 24 L240 30 L270 20 L300 22 L330 16 L358 12',
+      '1T': 'M0 50 L30 48 L60 42 L90 45 L120 36 L150 38 L180 30 L210 33 L240 24 L270 20 L300 22 L330 12 L358 8',
+      'Semua': 'M0 54 L40 52 L80 46 L120 48 L160 38 L200 34 L240 30 L280 22 L320 16 L358 6'
+    };
+    var line = paths[s.range];
+    var ranges = ['1H', '1B', '3B', '1T', 'Semua'].map(function (r) {
+      var on = s.range === r;
+      return { label: r, pressed: on ? 'true' : 'false', bg: on ? t.accent : 'transparent', fg: on ? t.onAccent : t.muted, weight: on ? '700' : '500', pick: function () { self.setState({ range: r }); } };
+    });
+    var tabs = [['ring', 'Ringkasan'], ['kelas', 'Kelas aset'], ['lokasi', 'Lokasi']].map(function (x) {
+      var on = s.tab === x[0];
+      return { label: x[1], sel: on ? 'true' : 'false', weight: on ? '700' : '500', fg: on ? t.on : t.muted, bar: on ? t.accent : 'transparent', pick: function () { self.setState({ tab: x[0] }); } };
+    });
+    var stats = [['Bulan ini', '+2,1%', t.up], ['Tahun ini', '+11,4%', t.up], ['Lokasi', '8', t.on]].map(function (x, i) {
+      return { label: x[0], value: x[1], color: x[2], border: i === 0 ? 'none' : '1px solid ' + t.hair, pad: i === 0 ? '0' : '14px' };
+    });
+    var names = ['Saham', 'Emas', 'Kripto', 'Tabungan', 'ETF', 'Reksa dana'];
+    var pcts = [32, 22, 18, 16, 7, 5];
+    var alloc = pcts.map(function (p, i) { return { pct: p, short: names[i], color: t.cls[i], radius: i === 0 ? '8px 3px 3px 8px' : i === 5 ? '3px 8px 8px 3px' : '3px' }; });
+    var cc = function (d) { return d > 0 ? t.up : d < 0 ? t.down : t.muted; };
+    var kinds = ['saham', 'emas', 'kripto', 'tabungan', 'etf', 'rd'];
+    var data = [
+      ['Saham BEI', 'Rp 411,1 jt', '+1,5%', 1], ['Emas', 'Rp 282,6 jt', '+0,8%', 1], ['Kripto', 'Rp 231,2 jt', '−1,4%', -1],
+      ['Tabungan', 'Rp 205,5 jt', '0,0%', 0], ['ETF', 'Rp 89,9 jt', '+1,1%', 1], ['Reksa dana', 'Rp 64,2 jt', '+0,1%', 1]
+    ];
+    var rows = data.map(function (d, i) {
+      var k = kinds[i];
+      return {
+        name: d[0], value: m(d[1]), chg: d[2], chgColor: cc(d[3]), pct: pcts[i] + '%',
+        color: t.cls[i], tile: t.tiles[i], barW: Math.round(pcts[i] / 32 * 100) + '%',
+        isSaham: k === 'saham', isEmas: k === 'emas', isKripto: k === 'kripto', isTabungan: k === 'tabungan', isEtf: k === 'etf', isRd: k === 'rd'
+      };
+    });
+    var locData = [
+      ['Stockbit', 'S', 'Saham BEI · 32%', 'Rp 411,1 jt', '+1,5%', 1, true, 0],
+      ['Indodax', 'I', 'Kripto · 18%', 'Rp 231,2 jt', '−1,4%', -1, false, 2],
+      ['Brankas rumah', 'B', 'Emas fisik · 14%', 'Rp 179,8 jt', '+0,8%', 1, false, 1],
+      ['BCA', 'B', 'Tabungan · 10%', 'Rp 128,5 jt', '0,0%', 0, false, 3],
+      ['Pegadaian', 'P', 'Emas digital · 8%', 'Rp 102,8 jt', '+0,8%', 1, false, 1],
+      ['Gotrade', 'G', 'ETF AS · 7%', 'Rp 89,9 jt', '+1,1%', 1, false, 4],
+      ['Bank Jago', 'J', 'Tabungan · 6%', 'Rp 77,1 jt', '0,0%', 0, false, 3],
+      ['Bibit', 'B', 'Reksa dana · 5%', 'Rp 64,2 jt', '+0,1%', 1, false, 5]
+    ];
+    var locs = locData.map(function (l) { return { name: l[0], ini: l[1], sub: l[2], value: m(l[3]), chg: l[4], chgColor: cc(l[5]), warn: l[6], color: t.cls[l[7]], tile: t.tiles[l[7]] }; });
+    var navDef = [
+      { label: 'Ringkasan', href: 'FrostRingkasan.dc.html', icon: 'M3 3h8v8H3zM13 3h8v5h-8zM13 10h8v11h-8zM3 13h8v8H3z' },
+      { label: 'Simulasi', href: '#', icon: 'M4 19h16M7 15l4-5 3 3 5-7' },
+      { label: 'Advisor', href: 'FrostAdvisor.dc.html', icon: 'M11 2l2 5.5L18.5 9.5 13 11.5 11 17l-2-5.5L3.5 9.5 9 7.5zM19 14l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9z' },
+      { label: 'Pengaturan', href: 'FrostPengaturan.dc.html', icon: 'M12 8.5a3.5 3.5 0 1 1 0 7a3.5 3.5 0 1 1 0-7zM12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1' }
+    ];
+    var nav = navDef.map(function (n, i) {
+      var on = i === 0;
+      return { label: n.label, href: n.href, icon: n.icon, current: on ? 'page' : 'false', fg: on ? t.accent : t.muted, sw: on ? '2.4' : '1.8', dot: on ? t.accent : 'transparent' };
+    });
+    return {
+      t: t,
+      nw: H ? 'Rp ••••••••' : 'Rp 1.284.560.000',
+      chg: H ? '+Rp ••••' : '+Rp 6.294.300',
+      line: line, area: line + ' L358 56 L0 56 Z',
+      ranges: ranges, tabs: tabs, stats: stats, alloc: alloc, rows: rows, locs: locs, nav: nav,
+      isRing: s.tab === 'ring', isLokasi: s.tab === 'lokasi', showRows: s.tab === 'ring' || s.tab === 'kelas',
+      goLokasi: function () { self.setState({ tab: 'lokasi' }); },
+      toggle: function () { self.setState({ hidden: !H }); },
+      eyeLabel: H ? 'Tampilkan nominal' : 'Sembunyikan nominal',
+      eyePath: H ? 'M3 3l18 18M10.6 5.1A10.8 10.8 0 0 1 12 5c6.5 0 10 7 10 7a17 17 0 0 1-3.2 4.1M6.6 6.6C3.7 8.4 2 12 2 12s3.5 7 10 7a9.7 9.7 0 0 0 5.4-1.6' : 'M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12zM12 9a3 3 0 1 1 0 6a3 3 0 1 1 0-6z'
+    };
+  }
+}
+</script>
+</body>
+</html>

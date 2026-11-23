@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Arta — Advisor</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="position: relative; width: 412px; height: 891px; overflow: hidden; background: {{ t.bg }}; color: {{ t.on }}; font-family: 'Plus Jakarta Sans', system-ui, sans-serif">
+
+  <div style="position: absolute; inset: 0; overflow-y: auto; scrollbar-width: none; padding: 124px 16px 250px 16px; box-sizing: border-box; display: flex; flex-direction: column; gap: 18px">
+    <sc-for list="{{ msgs }}" as="mm" hint-placeholder-count="3">
+      <sc-if value="{{ mm.isAi }}" hint-placeholder-val="{{ true }}">
+        <div style="display: flex; gap: 12px; align-items: flex-start">
+          <span style="width: 32px; height: 32px; flex: 0 0 auto; border-radius: 11px; background: {{ t.wash }}; display: flex; align-items: center; justify-content: center">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="{{ t.accent }}" aria-hidden="true"><path d="M11 2l2 5.5L18.5 9.5 13 11.5 11 17l-2-5.5L3.5 9.5 9 7.5z"></path><path d="M19 14l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9z"></path></svg>
+          </span>
+          <div style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 12px; padding-top: 5px">
+            <span style="font-size: 15.5px; line-height: 1.6">{{ mm.text }}</span>
+            <sc-if value="{{ mm.hasCard }}" hint-placeholder-val="{{ false }}">
+              <div style="border-radius: 18px; padding: 14px; background: {{ t.wash }}; display: flex; flex-direction: column; gap: 10px">
+                <div style="display: flex; justify-content: space-between; align-items: baseline">
+                  <span style="font-size: 13px; color: {{ t.muted }}">Simulasi · kripto −30%</span>
+                  <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 17px; font-weight: 800; color: {{ t.down }}">−5,4%</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 13px"><span style="color: {{ t.muted }}">Sekarang</span><span style="font-weight: 600; font-variant-numeric: tabular-nums">Rp 1,285 M</span></div>
+                <div style="height: 8px; border-radius: 4px; background: {{ t.accent }}"></div>
+                <div style="display: flex; justify-content: space-between; font-size: 13px"><span style="color: {{ t.muted }}">Setelah</span><span style="font-weight: 600; font-variant-numeric: tabular-nums">Rp 1,215 M</span></div>
+                <div style="display: flex; height: 8px; gap: 2px"><div style="width: 94.6%; border-radius: 4px; background: {{ t.accent }}"></div><div style="flex: 1 1 auto; border-radius: 4px; background: {{ t.down }}"></div></div>
+                <button style="align-self: flex-start; height: 36px; padding: 0 14px; border-radius: 18px; border: 0; background: {{ t.bg }}; color: {{ t.accent }}; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer">Buka simulasi →</button>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ mm.isUser }}" hint-placeholder-val="{{ false }}">
+        <div style="align-self: flex-end; max-width: 78%; border-radius: 20px 20px 6px 20px; padding: 11px 15px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 15.5px; line-height: 1.45">{{ mm.text }}</div>
+      </sc-if>
+    </sc-for>
+  </div>
+
+  <header style="position: absolute; left: 0; right: 0; top: 0; height: 108px; box-sizing: border-box; padding: 36px 8px 0 8px; {{ t.frost }}; border-bottom: 1px solid {{ t.hair }}; display: flex; align-items: center; justify-content: space-between">
+    <button aria-label="Riwayat percakapan" style="width: 48px; height: 48px; border: 0; border-radius: 50%; padding: 0; background: transparent; color: {{ t.on }}; display: flex; align-items: center; justify-content: center; cursor: pointer">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"></path></svg>
+    </button>
+    <div style="text-align: center">
+      <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 20px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1">Advisor</div>
+      <div style="font-size: 12px; color: {{ t.muted }}; margin-top: 3px; display: flex; align-items: center; justify-content: center; gap: 5px"><span style="width: 6px; height: 6px; border-radius: 50%; background: {{ t.up }}"></span>Membaca 8 lokasi · harga 06.48</div>
+    </div>
+    <button onClick="{{ reset }}" aria-label="Percakapan baru" style="width: 48px; height: 48px; border: 0; border-radius: 50%; padding: 0; background: transparent; color: {{ t.on }}; display: flex; align-items: center; justify-content: center; cursor: pointer">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6"></path><path d="M18 15v6M15 18h6"></path></svg>
+    </button>
+  </header>
+
+  <div style="position: absolute; left: 0; right: 0; bottom: 80px; box-sizing: border-box; padding: 10px 12px 8px 12px; {{ t.frost }}; border-top: 1px solid {{ t.hair }}; display: flex; flex-direction: column; gap: 8px">
+    <div style="display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none">
+      <sc-for list="{{ chips }}" as="c" hint-placeholder-count="3">
+        <button onClick="{{ c.ask }}" style="flex: 0 0 auto; height: 36px; padding: 0 14px 0 10px; border-radius: 18px; border: 1px solid {{ t.hairStrong }}; background: transparent; color: {{ t.on }}; font-family: inherit; font-size: 14px; display: flex; align-items: center; gap: 6px; cursor: pointer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="{{ t.accent }}" aria-hidden="true"><path d="M11 2l2 5.5L18.5 9.5 13 11.5 11 17l-2-5.5L3.5 9.5 9 7.5z"></path></svg>{{ c.label }}
+        </button>
+      </sc-for>
+    </div>
+    <div style="height: 52px; border-radius: 26px; padding: 0 6px 0 18px; background: {{ t.surf }}; display: flex; align-items: center; gap: 6px">
+      <label for="tanya-arta" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Tanya advisor</label>
+      <input id="tanya-arta" type="text" value="{{ draft }}" onChange="{{ onDraft }}" placeholder="Tanya soal portofoliomu…" style="flex: 1 1 auto; min-width: 0; height: 44px; border: 0; background: transparent; font-family: inherit; font-size: 16px; color: {{ t.on }}; outline: none">
+      <button onClick="{{ send }}" aria-label="Kirim" style="width: 42px; height: 42px; border-radius: 50%; border: 0; background: {{ t.accent }}; color: {{ t.onAccent }}; display: flex; align-items: center; justify-content: center; cursor: pointer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"></path></svg>
+      </button>
+    </div>
+    <span style="font-size: 12px; color: {{ t.muted }}; text-align: center">Informasi dari datamu, bukan nasihat keuangan berlisensi.</span>
+  </div>
+
+  <nav aria-label="Navigasi utama" style="position: absolute; left: 0; right: 0; bottom: 0; height: 80px; box-sizing: border-box; padding-bottom: 16px; {{ t.frost }}; display: flex; align-items: center; justify-content: space-around">
+    <sc-for list="{{ nav }}" as="n" hint-placeholder-count="4">
+      <a href="{{ n.href }}" aria-label="{{ n.label }}" aria-current="{{ n.current }}" style="width: 64px; height: 52px; color: {{ n.fg }}; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px">
+        <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{{ n.sw }}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ n.icon }}"></path></svg>
+        <span style="width: 5px; height: 5px; border-radius: 50%; background: {{ n.dot }}"></span>
+      </a>
+    </sc-for>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["light","dark"],"default":"light"},"$preview":{"width":412,"height":891}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var self = this;
+    var isDark = this.props.theme === 'dark';
+    var TH = {
+      light: { bg: '#FCFCFD', surf: '#F1F3F6', on: '#10131A', muted: '#5A6372', hair: '#E7EAEE', hairStrong: '#D3D7DD', accent: '#0B6E69', onAccent: '#FFFFFF', wash: '#E3F3F0', up: '#15803D', down: '#C2362B',
+        frost: 'background: rgba(252,252,253,0.76); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%)' },
+      dark: { bg: '#0B0C0F', surf: '#181A1F', on: '#E9EBEF', muted: '#8E96A1', hair: '#22252B', hairStrong: '#343840', accent: '#4FD1C5', onAccent: '#0B0C0F', wash: '#0E2624', up: '#4CC38A', down: '#FF7A6E',
+        frost: 'background: rgba(11,12,15,0.74); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%)' }
+    };
+    var t = isDark ? TH.dark : TH.light;
+    var initial = [
+      { role: 'ai', text: 'Selamat pagi. Kekayaanmu naik 0,49% hari ini, terutama dari saham BEI. Satu hal yang perlu diperhatikan: porsi Stockbit sekarang 32%, di atas batas 25% yang kamu atur.' },
+      { role: 'user', text: 'Kalau kripto turun 30%, dampaknya gimana?' },
+      { role: 'ai', card: true, text: 'Nilai kripto di Indodax akan turun sekitar Rp 69,4 jt. Total kekayaanmu jadi Rp 1,215 M, dan porsi kripto turun dari 18% ke 13%. Tabungan Rp 205,5 jt tidak terpengaruh.' }
+    ];
+    var answers = {
+      'Cek konsentrasi': 'Stockbit memegang 32% kekayaanmu, sedangkan batasmu 25%. Untuk kembali ke 25%, porsi di sana perlu berkurang sekitar Rp 89,9 jt, atau bisa juga menunggu aset di lokasi lain tumbuh.',
+      'Bandingkan dengan target': 'Dibanding target alokasimu (saham 30, emas 20, kripto 15, tabungan 20, ETF 10, RD 5): kripto lebih 3% (±Rp 38,5 jt), saham dan emas masing-masing lebih 2%. Tabungan kurang 4% (±Rp 51,4 jt) dan ETF kurang 3%.',
+      'Eksposur USD': 'Sekitar 47% kekayaanmu (kripto, emas, ETF luar negeri) ikut bergerak bersama kurs dolar. Kalau rupiah melemah 5%, nilai bagian ini naik sekitar Rp 30,2 jt; kalau menguat 5%, turun dengan besar yang sama.'
+    };
+    var s = Object.assign({ msgs: initial, draft: '', asked: [] }, this.state || {});
+    var push = function (q, a) { return s.msgs.concat([{ role: 'user', text: q }, { role: 'ai', text: a }]); };
+    var chips = Object.keys(answers).filter(function (k) { return s.asked.indexOf(k) < 0; }).map(function (k) {
+      return { label: k, ask: function () { self.setState({ msgs: push(k, answers[k]), asked: s.asked.concat([k]) }); } };
+    });
+    var navDef = [
+      { label: 'Ringkasan', href: 'FrostRingkasan.dc.html', icon: 'M3 3h8v8H3zM13 3h8v5h-8zM13 10h8v11h-8zM3 13h8v8H3z' },
+      { label: 'Simulasi', href: '#', icon: 'M4 19h16M7 15l4-5 3 3 5-7' },
+      { label: 'Advisor', href: 'FrostAdvisor.dc.html', icon: 'M11 2l2 5.5L18.5 9.5 13 11.5 11 17l-2-5.5L3.5 9.5 9 7.5zM19 14l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9z' },
+      { label: 'Pengaturan', href: 'FrostPengaturan.dc.html', icon: 'M12 8.5a3.5 3.5 0 1 1 0 7a3.5 3.5 0 1 1 0-7zM12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1' }
+    ];
+    var nav = navDef.map(function (n, i) {
+      var on = i === 2;
+      return { label: n.label, href: n.href, icon: n.icon, current: on ? 'page' : 'false', fg: on ? t.accent : t.muted, sw: on ? '2.4' : '1.8', dot: on ? t.accent : 'transparent' };
+    });
+    return {
+      t: t,
+      msgs: s.msgs.map(function (mm) { return { text: mm.text, isAi: mm.role === 'ai', isUser: mm.role === 'user', hasCard: !!mm.card }; }),
+      chips: chips, nav: nav,
+      draft: s.draft,
+      onDraft: function (e) { self.setState({ draft: e.target.value }); },
+      send: function () {
+        var q = (s.draft || '').trim();
+        if (!q) return;
+        self.setState({ msgs: push(q, 'Ini mockup: jawaban advisor akan muncul di sini, dihitung dari posisi dan harga terbaru di portofoliomu.'), draft: '' });
+      },
+      reset: function () { self.setState({ msgs: initial, asked: [], draft: '' }); }
+    };
+  }
+}
+</script>
+</body>
+</html>
