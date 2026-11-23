@@ -23,6 +23,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.offset
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -204,25 +206,42 @@ fun SuggestionChip(text: String, onClick: () -> Unit, modifier: Modifier = Modif
     }
 }
 
-/** Switch 52×32 sesuai mockup. */
+/** Switch 52×32 sesuai mockup. Thumb meluncur & membesar dengan pegas; warna ikut transisi. */
 @Composable
 fun ArtaSwitch(checked: Boolean, onCheckedChange: (Boolean) -> Unit, modifier: Modifier = Modifier, enabled: Boolean = true) {
     val c = Arta.colors
-    val track by animateColorAsState(if (checked) c.accent else Color.Transparent, label = "track")
-    val border by animateColorAsState(if (checked) c.accent else c.offBorder, label = "border")
-    val thumb by animateDpAsState(if (checked) 24.dp else 16.dp, label = "thumb")
+    val f by androidx.compose.animation.core.animateFloatAsState(
+        if (checked) 1f else 0f,
+        androidx.compose.animation.core.spring(dampingRatio = 0.72f, stiffness = 600f),
+        label = "switch",
+    )
+    val view = androidx.compose.ui.platform.LocalView.current
+    val p = f.coerceIn(0f, 1f)
+    val track = androidx.compose.ui.graphics.lerp(Color.Transparent, c.accent, p)
+    val border = androidx.compose.ui.graphics.lerp(c.offBorder, c.accent, p)
+    val thumbColor = androidx.compose.ui.graphics.lerp(c.offBorder, c.onAccent, p)
     Box(
         modifier.size(52.dp, 32.dp).clip(CircleShape).background(track).border(2.dp, border, CircleShape)
-            .clickable(enabled = enabled, role = Role.Switch) { onCheckedChange(!checked) }
+            .clickable(
+                enabled = enabled, role = Role.Switch,
+                interactionSource = androidx.compose.runtime.remember { androidx.compose.foundation.interaction.MutableInteractionSource() },
+                indication = null,
+            ) {
+                view.performHapticFeedback(android.view.HapticFeedbackConstants.CLOCK_TICK)
+                onCheckedChange(!checked)
+            }
             .semantics { stateDescription = if (checked) "aktif" else "nonaktif" }
-            .padding(horizontal = 2.dp),
-        contentAlignment = if (checked) Alignment.CenterEnd else Alignment.CenterStart,
+            .graphicsLayer { alpha = if (enabled) 1f else 0.4f },
+        contentAlignment = Alignment.CenterStart,
     ) {
+        // Lebar dalam 48 dp (52 − 2×2 border). Thumb 16→24 dp, jarak tepi 6→2 dp.
+        val size = 16.dp + 8.dp * f
+        val start = 6.dp + 18.dp * f
         Box(
-            Modifier.padding(horizontal = 2.dp).size(thumb).clip(CircleShape).background(if (checked) c.onAccent else c.offBorder),
+            Modifier.offset(x = start).size(size).clip(CircleShape).background(thumbColor),
             contentAlignment = Alignment.Center,
         ) {
-            if (checked) Icon(ArtaIcons.check, null, Modifier.size(14.dp), tint = c.accent)
+            Icon(ArtaIcons.check, null, Modifier.size(14.dp).graphicsLayer { alpha = p; scaleX = p; scaleY = p }, tint = c.accent)
         }
     }
 }

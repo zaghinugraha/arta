@@ -198,6 +198,10 @@
     <string name="send">Kirim</string>
     <string name="disclaimer">Informasi dari datamu, bukan nasihat keuangan berlisensi.</string>
     <string name="open_simulation">Buka simulasi →</string>
+    <string name="hist_today">Hari ini</string>
+    <string name="hist_yesterday">Kemarin</string>
+    <string name="hist_week">7 hari terakhir</string>
+    <string name="hist_older">Lebih lama</string>
     <string name="no_history">Belum ada riwayat.</string>
 
     <!-- Pengaturan -->

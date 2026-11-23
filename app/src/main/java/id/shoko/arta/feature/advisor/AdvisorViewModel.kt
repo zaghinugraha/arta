@@ -66,7 +66,11 @@ class AdvisorViewModel(private val c: AppContainer) : ViewModel() {
                     c.advisorRepo.add(convo, ChatRole.USER, q)
                     val ctx = context() ?: return@withContext
                     val allow = c.settings.current().advisorReadPortfolio
+                    val started = System.currentTimeMillis()
                     val reply = c.advisorService.answer(q, ctx, history, allow, intent)
+                    // Jawaban template instan; tahan sebentar agar gelembung mengetik tidak sekadar berkedip.
+                    val elapsed = System.currentTimeMillis() - started
+                    if (elapsed < 650) kotlinx.coroutines.delay(650 - elapsed)
                     c.advisorRepo.add(convo, ChatRole.ASSISTANT, reply.text, reply.card)
                 }
             } finally {

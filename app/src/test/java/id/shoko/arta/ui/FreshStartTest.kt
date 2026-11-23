@@ -36,6 +36,7 @@ class FreshStartTest {
         val app: App = ApplicationProvider.getApplicationContext()
         val db = Room.inMemoryDatabaseBuilder(app, ArtaDatabase::class.java).allowMainThreadQueries().build()
         app.container.dbHolder.attachForTest(db)
+        kotlinx.coroutines.runBlocking { app.container.settings.clearAll() } // DataStore dibagi antar uji dalam satu JVM
         val appVm = AppViewModel(app.container)
         val lockVm = LockViewModel(app.container)
         compose.setContent {

@@ -145,7 +145,7 @@ fun SettingsScreen(appVm: AppViewModel) {
             section(R.string.sec_security) {
                 val canBio = DeviceSecurity.canAuthenticate(context)
                 toggleRow(ArtaIcons.lock, Pal.BLUE, R.string.set_biometric, s.biometricLock && canBio, enabled = canBio,
-                    sub = if (!canBio) stringResource(R.string.no_device_lock) else null) { v ->
+                    sub = if (!canBio) stringResource(R.string.no_device_lock) else null, optimistic = false) { v ->
                     auth.authenticate(authTitle, { actions.setBiometric(v) { ok -> if (!ok) appVm.showMessage(bioFail) } }, { appVm.showMessage(it) })
                 }
                 toggleRow(ArtaIcons.eyeOff, Pal.SLATE, R.string.set_hide_on_open, s.hideAmountsOnOpen) { v -> set { repo.setHideOnOpen(v) } }
@@ -197,22 +197,23 @@ private fun glassLabel(g: GlassMode) = stringResource(
     when (g) { GlassMode.AUTO -> R.string.glass_auto; GlassMode.FULL -> R.string.glass_full; GlassMode.LIGHT -> R.string.glass_light; GlassMode.OFF -> R.string.glass_off }
 )
 
-// ---------- DSL baris ----------
+// ---------- Baris ----------
+// Baris dipanggil langsung sebagai composable (bukan lambda yang disimpan) agar selalu ikut
+// recompose saat setelan berubah.
 
 private class SectionScope {
-    val rows = mutableListOf<@Composable (divider: Boolean) -> Unit>()
+    var count = 0
+    fun nextHasDivider(): Boolean = count++ > 0
 }
 
 private fun LazyListScope.section(title: Int, build: @Composable SectionScope.() -> Unit) {
     item("sec$title") {
-        val scope = SectionScope()
-        scope.build()
         Column {
             Text(
                 stringResource(title), style = Arta.type.sectionLabel, color = Arta.colors.accent,
                 modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 22.dp, bottom = 6.dp),
             )
-            scope.rows.forEachIndexed { i, row -> row(i > 0) }
+            remember { SectionScope() }.apply { count = 0 }.build()
         }
     }
 }
@@ -227,48 +228,49 @@ private fun RowFrame(divider: Boolean, minHeight: Int, onClick: (() -> Unit)?, c
                 .padding(horizontal = 16.dp, vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(14.dp),
-        content = content,
+            content = content,
         )
     }
 }
 
+@Composable
 private fun SectionScope.navRow(icon: ImageVector, pal: Pal, label: Int, value: String, onClick: () -> Unit) {
-    rows += { divider ->
-        val (tile, tint) = palColors(pal)
-        RowFrame(divider, 66, onClick) {
-            SettingsIconTile(icon, tile, tint)
-            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                Text(stringResource(label), style = Arta.type.bodyLarge, color = Arta.colors.on)
-                Text(value, style = Arta.type.label, color = Arta.colors.muted, maxLines = 2)
-            }
+    val (tile, tint) = palColors(pal)
+    RowFrame(nextHasDivider(), 66, onClick) {
+        SettingsIconTile(icon, tile, tint)
+        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+            Text(stringResource(label), style = Arta.type.bodyLarge, color = Arta.colors.on)
+            Text(value, style = Arta.type.label, color = Arta.colors.muted, maxLines = 2)
         }
     }
 }
 
+@Composable
 private fun SectionScope.toggleRow(
     icon: ImageVector, pal: Pal, labelRes: Int, checked: Boolean,
-    enabled: Boolean = true, label: String? = null, sub: String? = null, onChange: (Boolean) -> Unit,
+    enabled: Boolean = true, label: String? = null, sub: String? = null, optimistic: Boolean = true, onChange: (Boolean) -> Unit,
 ) {
-    rows += { divider ->
-        val (tile, tint) = palColors(pal)
-        RowFrame(divider, 58, if (enabled) ({ onChange(!checked) }) else null) {
-            SettingsIconTile(icon, tile, tint)
-            Column(Modifier.weight(1f)) {
-                Text(label ?: stringResource(labelRes), style = Arta.type.bodyLarge, color = if (enabled) Arta.colors.on else Arta.colors.muted)
-                sub?.let { Text(it, style = Arta.type.small, color = Arta.colors.muted) }
-            }
-            ArtaSwitch(checked, onChange, enabled = enabled)
+    // Status lokal agar switch langsung bergerak saat disentuh, lalu disinkronkan dengan setelan tersimpan.
+    var local by remember { mutableStateOf(checked) }
+    androidx.compose.runtime.LaunchedEffect(checked) { local = checked }
+    val toggle = { v: Boolean -> if (optimistic) local = v; onChange(v) }
+    val (tile, tint) = palColors(pal)
+    RowFrame(nextHasDivider(), 58, if (enabled) ({ toggle(!local) }) else null) {
+        SettingsIconTile(icon, tile, tint)
+        Column(Modifier.weight(1f)) {
+            Text(label ?: stringResource(labelRes), style = Arta.type.bodyLarge, color = if (enabled) Arta.colors.on else Arta.colors.muted)
+            sub?.let { Text(it, style = Arta.type.small, color = Arta.colors.muted) }
         }
+        ArtaSwitch(local, { toggle(it) }, enabled = enabled)
     }
 }
 
+@Composable
 private fun SectionScope.dangerRow(icon: ImageVector, label: Int, onClick: () -> Unit) {
-    rows += { divider ->
-        val (tile, tint) = palColors(Pal.RED)
-        RowFrame(divider, 58, onClick) {
-            SettingsIconTile(icon, tile, tint)
-            Text(stringResource(label), style = Arta.type.bodyLarge, color = Arta.colors.down, modifier = Modifier.weight(1f))
-        }
+    val (tile, tint) = palColors(Pal.RED)
+    RowFrame(nextHasDivider(), 58, onClick) {
+        SettingsIconTile(icon, tile, tint)
+        Text(stringResource(label), style = Arta.type.bodyLarge, color = Arta.colors.down, modifier = Modifier.weight(1f))
     }
 }
 

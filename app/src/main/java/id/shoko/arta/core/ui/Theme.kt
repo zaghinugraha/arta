@@ -64,6 +64,17 @@ fun ArtaTheme(
     }
     val c = if (dark) DarkColors else LightColors
     val context = LocalContext.current
+    // Ikon status bar & navigasi mengikuti tema aplikasi (bukan tema sistem), agar tetap terbaca.
+    val view = androidx.compose.ui.platform.LocalView.current
+    if (!view.isInEditMode) {
+        androidx.compose.runtime.SideEffect {
+            val window = (context as? android.app.Activity)?.window ?: return@SideEffect
+            androidx.core.view.WindowCompat.getInsetsController(window, view).apply {
+                isAppearanceLightStatusBars = !dark
+                isAppearanceLightNavigationBars = !dark
+            }
+        }
+    }
     val glass = remember(glassMode) { resolveGlass(context, glassMode) }
     val scheme = if (dark) darkColorScheme(
         primary = c.accent, onPrimary = c.onAccent, primaryContainer = c.wash, onPrimaryContainer = c.on,

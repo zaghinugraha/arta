@@ -144,7 +144,7 @@ fun AdvisorScreen(appVm: AppViewModel, embedded: Boolean = false) {
                         actions.selectTab(MainTab.SIMULATION)
                     })
                 }
-                if (thinking) item("thinking") { AiMessage("…", null, onOpenSim = {}) }
+                if (thinking) item("thinking") { TypingBubble() }
             }
 
             // Header frosted
@@ -214,26 +214,16 @@ fun AdvisorScreen(appVm: AppViewModel, embedded: Boolean = false) {
         }
     }
 
-    if (showHistory) {
-        val convos by vm.conversations.collectAsStateWithLifecycle()
-        AlertDialog(
-            onDismissRequest = { showHistory = false },
-            containerColor = c.bg,
-            title = { Text(stringResource(R.string.chat_history), style = Arta.type.section) },
-            text = {
-                Column(Modifier.heightIn(max = 420.dp).verticalScroll(rememberScrollState())) {
-                    if (convos.isEmpty()) MutedText(stringResource(R.string.no_history), style = Arta.type.body)
-                    convos.forEach { m ->
-                        Column(Modifier.fillMaxWidth().clickable { vm.openConversation(m.conversationId); showHistory = false }.padding(vertical = 10.dp)) {
-                            Text(m.content, style = Arta.type.bodyLarge, color = c.on, maxLines = 1)
-                            MutedText(formatTime(m.createdAt), style = Arta.type.small)
-                        }
-                    }
-                }
-            },
-            confirmButton = { TextButton(onClick = { showHistory = false }) { Text(stringResource(R.string.close), color = c.accent) } },
-        )
-    }
+    val convos by vm.conversations.collectAsStateWithLifecycle()
+    val currentId by vm.conversationId.collectAsStateWithLifecycle()
+    HistoryDrawer(
+        visible = showHistory,
+        conversations = convos,
+        currentId = currentId,
+        onSelect = vm::openConversation,
+        onNew = vm::newConversation,
+        onDismiss = { showHistory = false },
+    )
 }
 
 @Composable
