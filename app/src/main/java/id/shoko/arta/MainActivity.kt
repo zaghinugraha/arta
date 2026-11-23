@@ -13,6 +13,14 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.lifecycleScope
+import id.shoko.arta.core.CrashLog
+import id.shoko.arta.domain.model.GlassMode
+import id.shoko.arta.feature.lock.CrashScreen
+import kotlinx.coroutines.launch
 import id.shoko.arta.core.security.Authenticator
 import id.shoko.arta.core.security.BiometricGate
 import id.shoko.arta.core.security.LocalAuthenticator
@@ -51,9 +59,22 @@ class MainActivity : FragmentActivity() {
 
         setContent {
             val settings by appVm.settings.collectAsStateWithLifecycle()
+            var crash by remember { mutableStateOf(CrashLog.read(this)) }
             ArtaTheme(themeMode = settings.theme, glassMode = settings.glassMode) {
                 CompositionLocalProvider(LocalAuthenticator provides authenticator) {
-                    ArtaApp(appVm = appVm, lockVm = lockVm)
+                    val trace = crash
+                    if (trace != null) {
+                        CrashScreen(
+                            trace = trace,
+                            onContinue = { CrashLog.clear(this); crash = null },
+                            onSafeMode = {
+                                CrashLog.clear(this)
+                                lifecycleScope.launch { container.settings.setGlassMode(GlassMode.OFF); crash = null }
+                            },
+                        )
+                    } else {
+                        ArtaApp(appVm = appVm, lockVm = lockVm)
+                    }
                 }
             }
         }

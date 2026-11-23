@@ -38,6 +38,11 @@ class KeystoreManager(private val context: Context) {
             generate(requireAuth, strongBox = hasStrongBox)
         } catch (_: StrongBoxUnavailableException) {
             generate(requireAuth, strongBox = false)
+        } catch (e: java.security.ProviderException) {
+            // Sebagian perangkat menolak parameter tertentu di StrongBox: ulangi di TEE.
+            if (!hasStrongBox) throw e
+            deleteKey(requireAuth)
+            generate(requireAuth, strongBox = false)
         }
     }
 

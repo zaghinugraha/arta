@@ -5,8 +5,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.unit.dp
 import dev.chrisbanes.haze.HazeInput
 import dev.chrisbanes.haze.HazeState
@@ -36,12 +34,7 @@ fun Modifier.frosted(): Modifier {
             blurRadius(20.dp)
             backgroundColor(bg)
             noiseFactor(0f)
-            colorEffects(
-                listOf(
-                    HazeColorEffect.colorFilter(ColorFilter.colorMatrix(ColorMatrix().apply { setToSaturation(1.8f) })),
-                    HazeColorEffect.tint(tint),
-                )
-            )
+            colorEffects(listOf(HazeColorEffect.tint(tint)))
             fallbackColorEffect(HazeColorEffect.tint(bg.copy(alpha = 0.94f)))
         }
     }

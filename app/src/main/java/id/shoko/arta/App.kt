@@ -13,6 +13,7 @@ open class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        id.shoko.arta.core.CrashLog.install(this)
         container = AppContainer(this)
         MoveNotifier.ensureChannel(this)
         scheduleBackgroundWork()

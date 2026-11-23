@@ -59,7 +59,18 @@ class LockViewModel(private val c: AppContainer) : ViewModel() {
     private suspend fun openDb() {
         val want = wantAuth()
         val result = withContext(Dispatchers.IO) {
-            when (val r = c.passphraseStore.loadOrCreate(requireAuthForNew = want)) {
+            val r = try {
+                c.passphraseStore.loadOrCreate(requireAuthForNew = want)
+            } catch (e: Exception) {
+                // Kunci ber-autentikasi gagal dibuat di perangkat ini: buat tanpa autentikasi (masih terenkripsi Keystore).
+                if (!c.passphraseStore.exists() && want) {
+                    runCatching { c.keystore.deleteAll() }
+                    try { c.passphraseStore.loadOrCreate(requireAuthForNew = false) } catch (e2: Exception) {
+                        return@withContext LockState.NeedsAuth("Gagal menyiapkan kunci: ${e2.javaClass.simpleName}")
+                    }
+                } else return@withContext LockState.NeedsAuth("Gagal membuka kunci: ${e.javaClass.simpleName}")
+            }
+            when (r) {
                 is PassphraseStore.LoadResult.Ok -> try {
                     c.dbHolder.open(r.passphrase)
                     // Samakan pembungkus passphrase dengan setelan sidik jari (masih dalam jendela autentikasi).
