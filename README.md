@@ -28,7 +28,7 @@ Versi library: AGP 9.5.2, Kotlin 2.4.21, Compose BOM 2026.11.01, Room 2.8.5 + `n
 | | |
 |---|---|
 | M1 Fondasi | ✅ version catalog, token & tipografi Plus Jakarta Sans (bundled, OFL di `licenses/`), 4 tab + FAB |
-| M2 Keamanan & data | ✅ passphrase acak dibungkus AES-GCM Keystore (StrongBox→TEE), Room+SQLCipher, BiometricPrompt + kredensial perangkat, layar pemulihan, FLAG_SECURE, backup off |
+| M2 Keamanan & data | ✅ passphrase acak dibungkus AES-GCM Keystore (StrongBox→TEE), Room+SQLCipher, BiometricPrompt + kredensial perangkat, layar pemulihan, backup off, blokir tangkapan layar opsional (default mati) |
 | M3 Pencatatan | ✅ CRUD lokasi, sheet Tambah posisi bertahap, catat beli/jual/setor/tarik, detail lokasi & posisi, harga manual |
 | M4 Harga | ✅ CoinGecko, Yahoo Finance, Frankfurter (ECB), emas spot (`GC=F` ÷ 31,1034768), cache, WorkManager, penanda basi |
 | M5 Ringkasan | ✅ total + grafik Canvas + rentang, statistik, insight, alokasi, kelas aset, lokasi, snapshot harian |

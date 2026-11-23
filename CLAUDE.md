@@ -20,7 +20,8 @@ Pemakaian awal: pribadi, di 4 perangkat Samsung — Galaxy S25 Ultra, Galaxy S24
 - **Uang & kuantitas = `BigDecimal`**, disimpan sebagai TEXT desimal. Jangan pernah `Double`/`Float` untuk nilai uang.
 - **API key LLM hanya dari `BuildConfig`** yang diisi dari `local.properties` (lihat `local.properties.example`). Jangan hardcode key, jangan commit `local.properties`.
 - **Jangan log** API key, passphrase, nominal, nama lokasi, atau isi percakapan Advisor (termasuk di Logcat build debug).
-- `android:allowBackup="false"` + `dataExtractionRules` yang mengecualikan semua data; `FLAG_SECURE` di semua Activity.
+- `android:allowBackup="false"` + `dataExtractionRules` yang mengecualikan semua data.
+- **Tangkapan layar & rekam layar diizinkan secara default** (keputusan pemilik, pemakaian pribadi). `FLAG_SECURE` hanya dipasang bila pengguna menyalakan "Blokir tangkapan layar" di Pengaturan.
 - Data yang dikirim ke LLM hanya **ringkasan agregat** (persentase, perubahan, batas) — tanpa nama lokasi, simbol spesifik bila tidak perlu, dan tanpa nominal persis. Lihat `ARCHITECTURE.md §7`.
 - Teks UI berbahasa **Indonesia** (siapkan `strings.xml` agar bisa ditambah bahasa Inggris nanti).
 
@@ -35,7 +36,7 @@ Pemakaian awal: pribadi, di 4 perangkat Samsung — Galaxy S25 Ultra, Galaxy S24
 ## Urutan pengerjaan (milestone)
 
 1. **M1 — Fondasi:** proyek Gradle (version catalog), tema & token dari `DESIGN.md`, font Plus Jakarta Sans (bundled di `res/font`), navigasi 4 tab + FAB, kerangka layar kosong.
-2. **M2 — Keamanan & data:** Keystore + passphrase, Room + SQLCipher, entity/DAO sesuai `ARCHITECTURE.md §4`, lock screen biometrik, FLAG_SECURE, backup off.
+2. **M2 — Keamanan & data:** Keystore + passphrase, Room + SQLCipher, entity/DAO sesuai `ARCHITECTURE.md §4`, lock screen biometrik, FLAG_SECURE opsional, backup off.
 3. **M3 — Pencatatan:** CRUD lokasi, alur "Tambah posisi" (FAB), catat beli/jual opsional, detail lokasi.
 4. **M4 — Harga:** provider harga (interface + implementasi), cache, WorkManager periodik, penanda harga basi, konversi kurs.
 5. **M5 — Ringkasan:** total kekayaan, grafik, alokasi, kelas aset, tab Lokasi, snapshot harian.

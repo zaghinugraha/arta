@@ -253,6 +253,8 @@
     <string name="no_device_lock">Atur kunci layar perangkat dulu</string>
     <string name="biometric_change_failed">Gagal mengubah kunci. Coba lagi.</string>
     <string name="set_hide_on_open">Sembunyikan nominal saat dibuka</string>
+    <string name="set_block_screenshots">Blokir tangkapan layar</string>
+    <string name="set_block_screenshots_sub">Cegah screenshot, rekam layar, dan pratinjau di Recents</string>
     <string name="set_auto_lock">Kunci otomatis setelah</string>
     <string name="n_minutes">%1$d menit</string>
     <string name="immediately">Segera</string>

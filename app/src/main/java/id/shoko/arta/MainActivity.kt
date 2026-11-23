@@ -13,6 +13,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -47,18 +48,17 @@ class MainActivity : FragmentActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Cegah tangkapan layar & pratinjau di Recents.
-        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
         enableEdgeToEdge(
             statusBarStyle = SystemBarStyle.auto(android.graphics.Color.TRANSPARENT, android.graphics.Color.TRANSPARENT),
             navigationBarStyle = SystemBarStyle.auto(android.graphics.Color.TRANSPARENT, android.graphics.Color.TRANSPARENT),
         )
         super.onCreate(savedInstanceState)
-        setRecentsScreenshotEnabled(false)
         ProcessLifecycleOwner.get().lifecycle.addObserver(processObserver)
 
         setContent {
             val settings by appVm.settings.collectAsStateWithLifecycle()
+            // Tangkapan layar diizinkan secara default (keputusan pemilik); bisa diblokir di Pengaturan.
+            LaunchedEffect(settings.blockScreenshots) { applyScreenshotPolicy(settings.blockScreenshots) }
             var crash by remember { mutableStateOf(CrashLog.read(this)) }
             ArtaTheme(themeMode = settings.theme, glassMode = settings.glassMode) {
                 CompositionLocalProvider(LocalAuthenticator provides authenticator) {
@@ -78,6 +78,12 @@ class MainActivity : FragmentActivity() {
                 }
             }
         }
+    }
+
+    private fun applyScreenshotPolicy(block: Boolean) {
+        if (block) window.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
+        else window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
+        if (android.os.Build.VERSION.SDK_INT >= 33) setRecentsScreenshotEnabled(!block)
     }
 
     override fun onResume() {

@@ -31,6 +31,8 @@ data class Settings(
     val advisorDailyInsight: Boolean = true,
     val biometricLock: Boolean = true,
     val hideAmountsOnOpen: Boolean = false,
+    /** Keputusan pemilik: tangkapan layar diizinkan secara default. true = pasang FLAG_SECURE. */
+    val blockScreenshots: Boolean = false,
     val autoLockMin: Int = 1,
     val glassMode: GlassMode = GlassMode.AUTO,
     val onboardingDone: Boolean = false,
@@ -61,6 +63,7 @@ class SettingsRepository(private val context: Context) {
         val advisorDaily = booleanPreferencesKey("advisor_daily_insight")
         val biometric = booleanPreferencesKey("biometric_lock")
         val hideOnOpen = booleanPreferencesKey("hide_amounts_on_open")
+        val blockScreenshots = booleanPreferencesKey("block_screenshots")
         val autoLock = intPreferencesKey("auto_lock_min")
         val glass = stringPreferencesKey("glass_mode")
         val onboarding = booleanPreferencesKey("onboarding_done")
@@ -86,6 +89,7 @@ class SettingsRepository(private val context: Context) {
             advisorDailyInsight = p[K.advisorDaily] ?: d.advisorDailyInsight,
             biometricLock = p[K.biometric] ?: d.biometricLock,
             hideAmountsOnOpen = p[K.hideOnOpen] ?: d.hideAmountsOnOpen,
+            blockScreenshots = p[K.blockScreenshots] ?: d.blockScreenshots,
             autoLockMin = p[K.autoLock] ?: d.autoLockMin,
             glassMode = p.enum(K.glass, d.glassMode),
             onboardingDone = p[K.onboarding] ?: d.onboardingDone,
@@ -108,6 +112,7 @@ class SettingsRepository(private val context: Context) {
     suspend fun setAdvisorDaily(v: Boolean) = context.dataStore.edit { it[K.advisorDaily] = v }
     suspend fun setBiometric(v: Boolean) = context.dataStore.edit { it[K.biometric] = v }
     suspend fun setHideOnOpen(v: Boolean) = context.dataStore.edit { it[K.hideOnOpen] = v }
+    suspend fun setBlockScreenshots(v: Boolean) = context.dataStore.edit { it[K.blockScreenshots] = v }
     suspend fun setAutoLock(v: Int) = context.dataStore.edit { it[K.autoLock] = v }
     suspend fun setGlassMode(v: GlassMode) = context.dataStore.edit { it[K.glass] = v.name }
     suspend fun setOnboardingDone(v: Boolean) = context.dataStore.edit { it[K.onboarding] = v }

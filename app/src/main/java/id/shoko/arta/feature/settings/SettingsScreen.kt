@@ -149,6 +149,7 @@ fun SettingsScreen(appVm: AppViewModel) {
                     auth.authenticate(authTitle, { actions.setBiometric(v) { ok -> if (!ok) appVm.showMessage(bioFail) } }, { appVm.showMessage(it) })
                 }
                 toggleRow(ArtaIcons.eyeOff, Pal.SLATE, R.string.set_hide_on_open, s.hideAmountsOnOpen) { v -> set { repo.setHideOnOpen(v) } }
+                toggleRow(ArtaIcons.lock, Pal.SLATE, R.string.set_block_screenshots, s.blockScreenshots, sub = stringResource(R.string.set_block_screenshots_sub)) { v -> set { repo.setBlockScreenshots(v) } }
                 navRow(ArtaIcons.clock, Pal.SLATE, R.string.set_auto_lock, stringResource(R.string.n_minutes, s.autoLockMin)) { dialog = "autolock" }
                 val archived = state?.data?.locations?.filter { it.archived }.orEmpty()
                 if (archived.isNotEmpty()) navRow(ArtaIcons.list, Pal.SLATE, R.string.archived_locations, archived.joinToString { it.name }) { dialog = "archived" }

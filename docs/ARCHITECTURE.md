@@ -28,7 +28,7 @@ Satu modul `:app` dengan pembagian package (cukup untuk app pribadi; bisa dipeca
 ```
 id.shoko.arta
 ├── App.kt                       // Application, init Koin, WorkManager
-├── MainActivity.kt              // FLAG_SECURE, lock gate, NavHost
+├── MainActivity.kt              // FLAG_SECURE opsional, lock gate, NavHost
 ├── core/
 │   ├── money/                   // Money, BigDecimal helpers, format IDR (id-ID)
 │   ├── security/                // KeystoreManager, PassphraseStore, BiometricGate
@@ -303,7 +303,7 @@ Tanpa nama lokasi, tanpa nominal rupiah persis (cukup persen; nominal dihitung l
 
 - **Passphrase DB**: 32 byte acak (`SecureRandom`), dienkripsi AES-GCM dengan kunci Keystore (`setUserAuthenticationRequired` sesuai setelan biometrik, `setIsStrongBoxBacked(true)` dengan fallback TEE), ciphertext + IV disimpan di file privat aplikasi.
 - Jika kunci Keystore hilang/invalid (mis. sidik jari baru didaftarkan) → tampilkan pemulihan: data tidak bisa dibuka; tawarkan hapus & mulai ulang. **Ekspor CSV berkala** adalah satu-satunya cadangan (sengaja, karena backup cloud dimatikan).
-- `FLAG_SECURE`, `allowBackup=false`, `dataExtractionRules` exclude semua, `usesCleartextTraffic=false`, network security config hanya HTTPS.
+- `FLAG_SECURE` opsional (setelan "Blokir tangkapan layar", default mati — keputusan pemilik), `allowBackup=false`, `dataExtractionRules` exclude semua, `usesCleartextTraffic=false`, network security config hanya HTTPS.
 - Ekspor CSV: simpan via Storage Access Framework (pengguna memilih lokasi); peringatkan bahwa file tidak terenkripsi.
 - Tidak ada izin selain `INTERNET`, `USE_BIOMETRIC`, `POST_NOTIFICATIONS` (opsional).
 - R8/minify aktif di release; hapus log debug di release.
