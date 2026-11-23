@@ -4,8 +4,10 @@ import android.Manifest
 import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.core.CubicBezierEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
@@ -95,10 +97,11 @@ fun ArtaApp(appVm: AppViewModel, lockVm: LockViewModel) {
     }
     val settings by appVm.settings.collectAsStateWithLifecycle()
     val state by appVm.state.collectAsStateWithLifecycle()
-    val snackbar = remember { SnackbarHostState() }
     val message by appVm.message.collectAsStateWithLifecycle()
+    val context = androidx.compose.ui.platform.LocalContext.current
     LaunchedEffect(message) {
-        message?.let { snackbar.showSnackbar(it); appVm.consumeMessage() }
+        // Toast sistem: di Samsung otomatis tampil dengan gaya One UI.
+        message?.let { android.widget.Toast.makeText(context, it, android.widget.Toast.LENGTH_SHORT).show(); appVm.consumeMessage() }
     }
     LaunchedEffect(Unit) { appVm.onResume() }
 
@@ -118,10 +121,11 @@ fun ArtaApp(appVm: AppViewModel, lockVm: LockViewModel) {
             NavHost(
                 navController = nav,
                 startDestination = "main",
-                enterTransition = { fadeIn() },
-                exitTransition = { fadeOut() },
-                popEnterTransition = { EnterTransition.None },
-                popExitTransition = { ExitTransition.None },
+                // Gaya push One UI: layar baru masuk dari kanan menutupi yang lama (geser sedikit + redup).
+                enterTransition = { slideInHorizontally(navTween()) { it } },
+                exitTransition = { slideOutHorizontally(navTween()) { -it / 5 } + fadeOut(navTween(), targetAlpha = 0.6f) },
+                popEnterTransition = { slideInHorizontally(navTween()) { -it / 5 } + fadeIn(navTween(), initialAlpha = 0.6f) },
+                popExitTransition = { slideOutHorizontally(navTween()) { it } },
             ) {
                 composable("main") {
                     if (needsOnboarding) OnboardingScreen(appVm)
@@ -134,9 +138,9 @@ fun ArtaApp(appVm: AppViewModel, lockVm: LockViewModel) {
             addRequest?.let { req ->
                 AddPositionSheet(appVm, req, onDismiss = { addRequest = null })
             }
-            SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).navigationBarsPadding().padding(bottom = 96.dp)) { data ->
-                Snackbar(containerColor = Arta.colors.on, contentColor = Arta.colors.bg) { Text(data.visuals.message, style = Arta.type.label) }
-            }
         }
     }
 }
+
+/** Kurva 'emphasized decelerate' — terasa seperti transisi sistem. */
+private fun <T> navTween() = tween<T>(380, easing = CubicBezierEasing(0.05f, 0.7f, 0.1f, 1f))

@@ -3,6 +3,7 @@ package id.shoko.arta.feature.summary
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
@@ -45,7 +46,7 @@ fun AssetClassDetailScreen(appVm: AppViewModel, assetClass: AssetClass) {
     DetailScaffold(
         title = stringResource(AssetClassRes.label(assetClass)),
         onBack = actions::back,
-        bottomBar = { PrimaryButton(stringResource(R.string.add_position), onClick = { actions.openAddPosition(AddPositionRequest(assetClass = assetClass)) }, modifier = Modifier) },
+        bottomBar = { PrimaryButton(stringResource(R.string.add_position), onClick = { actions.openAddPosition(AddPositionRequest(assetClass = assetClass)) }, modifier = Modifier.fillMaxWidth()) },
     ) {
         item("head") {
             Row(Modifier.padding(16.dp), horizontalArrangement = Arrangement.spacedBy(14.dp), verticalAlignment = Alignment.CenterVertically) {

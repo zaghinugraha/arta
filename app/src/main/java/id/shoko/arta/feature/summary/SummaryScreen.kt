@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -148,23 +149,38 @@ private fun SummaryHeader(tab: SummaryTab, onTab: (SummaryTab) -> Unit) {
                 onClick = actions.toggleHidden,
             )
         }
-        Row(Modifier.fillMaxWidth().height(51.dp)) {
-            SummaryTab.entries.forEach { t ->
-                val on = t == tab
-                Column(
-                    Modifier.weight(1f).fillMaxHeight().clickable(role = Role.Tab) { onTab(t) }.semantics { selected = on },
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Bottom,
-                ) {
-                    Text(
-                        stringResource(t.label),
-                        style = Arta.type.tab.copy(fontWeight = if (on) FontWeight.Bold else FontWeight.Medium),
-                        color = if (on) c.on else c.muted,
-                    )
-                    Spacer(Modifier.height(12.dp))
-                    Box(Modifier.size(56.dp, 4.dp).clip(RoundedCornerShape(2.dp)).background(if (on) c.accent else Color.Transparent))
+        androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxWidth().height(51.dp)) {
+            val tabW = maxWidth / SummaryTab.entries.size
+            val indicatorX by androidx.compose.animation.core.animateDpAsState(
+                tabW * tab.ordinal + (tabW - 56.dp) / 2,
+                androidx.compose.animation.core.spring(dampingRatio = 0.85f, stiffness = 500f), label = "tabIndicator",
+            )
+            Row(Modifier.fillMaxSize()) {
+                SummaryTab.entries.forEach { t ->
+                    val on = t == tab
+                    val color by androidx.compose.animation.animateColorAsState(if (on) c.on else c.muted, label = "tabColor")
+                    Box(
+                        Modifier.weight(1f).fillMaxHeight()
+                            .clickable(
+                                interactionSource = remember { androidx.compose.foundation.interaction.MutableInteractionSource() },
+                                indication = null, role = Role.Tab,
+                            ) { onTab(t) }
+                            .semantics { selected = on },
+                        contentAlignment = Alignment.BottomCenter,
+                    ) {
+                        Text(
+                            stringResource(t.label),
+                            style = Arta.type.tab.copy(fontWeight = if (on) FontWeight.Bold else FontWeight.Medium),
+                            color = color,
+                            modifier = Modifier.padding(bottom = 16.dp),
+                        )
+                    }
                 }
             }
+            Box(
+                Modifier.align(Alignment.BottomStart).offset(x = indicatorX)
+                    .size(56.dp, 4.dp).clip(RoundedCornerShape(2.dp)).background(c.accent)
+            )
         }
     }
 }

@@ -14,8 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Slider
-import androidx.compose.material3.SliderDefaults
+import id.shoko.arta.core.ui.BipolarSlider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -65,7 +64,7 @@ fun SimulationScreen(appVm: AppViewModel) {
     Box(Modifier.fillMaxSize()) {
         LazyColumn(
             Modifier.fillMaxSize().then(if (haze != null) Modifier.hazeSource(haze) else Modifier),
-            contentPadding = PaddingValues(top = statusBarTop() + 82.dp, bottom = bottomContentSpace(extra = 96.dp), start = 16.dp, end = 16.dp),
+            contentPadding = PaddingValues(top = statusBarTop() + 82.dp + 16.dp, bottom = bottomContentSpace(extra = 96.dp), start = 16.dp, end = 16.dp),
             verticalArrangement = Arrangement.spacedBy(14.dp),
         ) {
             if (v == null || result == null) return@LazyColumn
@@ -147,23 +146,16 @@ fun SimulationScreen(appVm: AppViewModel) {
 @Composable
 private fun ScenarioSlider(label: String, value: Int, min: Int, max: Int, onChange: (Int) -> Unit) {
     val c = Arta.colors
-    val steps = (max - min) / Scenario.STEP - 1
     Column {
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
             Text(label, style = Arta.type.label, color = c.on)
             val color = when { value < 0 -> c.down; value > 0 -> c.up; else -> c.muted }
-            Text((if (value > 0) "+" else if (value < 0) MoneyFormat.MINUS else "") + kotlin.math.abs(value) + "%", style = Arta.type.labelStrong, color = color)
+            androidx.compose.animation.AnimatedContent(value, label = "pct") { v ->
+                Text((if (v > 0) "+" else if (v < 0) MoneyFormat.MINUS else "") + kotlin.math.abs(v) + "%", style = Arta.type.labelStrong, color = color)
+            }
         }
-        Slider(
-            value = value.toFloat(),
-            onValueChange = { onChange((Math.round(it / Scenario.STEP) * Scenario.STEP)) },
-            valueRange = min.toFloat()..max.toFloat(),
-            steps = steps,
-            colors = SliderDefaults.colors(
-                thumbColor = c.accent, activeTrackColor = c.accent, inactiveTrackColor = c.track,
-                activeTickColor = c.onAccent.copy(alpha = 0.5f), inactiveTickColor = c.muted.copy(alpha = 0.4f),
-            ),
-            modifier = Modifier.semantics { contentDescription = label },
+        BipolarSlider(
+            value = value, onValueChange = onChange, min = min, max = max, step = Scenario.STEP, label = label,
         )
     }
 }

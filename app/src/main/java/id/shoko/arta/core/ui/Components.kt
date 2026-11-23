@@ -165,9 +165,9 @@ fun SecondaryButton(text: String, onClick: () -> Unit, modifier: Modifier = Modi
     val c = Arta.colors
     Box(
         modifier.heightIn(min = 48.dp).clip(RoundedCornerShape(24.dp)).border(1.dp, c.hairStrong, RoundedCornerShape(24.dp))
-            .clickable(role = Role.Button, onClick = onClick).padding(horizontal = 18.dp),
+            .clickable(role = Role.Button, onClick = onClick).padding(horizontal = 14.dp),
         contentAlignment = Alignment.Center,
-    ) { Text(text, style = Arta.type.labelStrong, color = color) }
+    ) { Text(text, style = Arta.type.labelStrong, color = color, maxLines = 1, softWrap = false, overflow = TextOverflow.Ellipsis) }
 }
 
 /** Pill 36 dp; terpilih = latar aksen. */

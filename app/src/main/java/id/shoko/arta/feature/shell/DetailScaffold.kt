@@ -28,6 +28,7 @@ import id.shoko.arta.core.ui.Arta
 import id.shoko.arta.core.ui.ArtaIcons
 import id.shoko.arta.core.ui.CircleIconButton
 import id.shoko.arta.core.ui.LocalHazeState
+import id.shoko.arta.core.ui.frosted
 
 /** Kerangka layar detail: header frosted dengan tombol kembali + daftar. */
 @Composable
@@ -57,7 +58,10 @@ fun DetailScaffold(
                 }
             }
             if (bottomBar != null) {
-                Column(Modifier.align(Alignment.BottomCenter).fillMaxWidth().navigationBarsPadding().padding(16.dp)) { bottomBar() }
+                Column(Modifier.align(Alignment.BottomCenter).fillMaxWidth().frosted()) {
+                    id.shoko.arta.core.ui.Hairline()
+                    Column(Modifier.fillMaxWidth().navigationBarsPadding().padding(horizontal = 16.dp, vertical = 12.dp)) { bottomBar() }
+                }
             }
         }
     }
