@@ -24,7 +24,9 @@ class DatabaseHolder(private val context: Context) {
         _db.value?.let { return it }
         ensureLibrary()
         val database = Room.databaseBuilder(context, ArtaDatabase::class.java, ArtaDatabase.NAME)
-            .openHelperFactory(SupportOpenHelperFactory(passphrase))
+            // SQLCipher menyimpan referensi array ini dan memakainya lagi setiap membuka koneksi baru
+            // (koneksi baca WAL). Beri salinan sendiri: pemanggil boleh mengosongkan array aslinya.
+            .openHelperFactory(SupportOpenHelperFactory(passphrase.copyOf()))
             .build()
         // Paksa buka sekarang agar passphrase salah langsung terdeteksi.
         database.openHelper.writableDatabase
